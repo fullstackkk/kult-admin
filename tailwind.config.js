@@ -29,6 +29,11 @@ module.exports = {
       fit: "fit-content",
       ...breakpoints(theme("screens")),
     }),
+    // надо бы настроить переменные тайлвинда что б потом темы замутить
+    colors: {
+      primary: "#E2DEFF",
+      textprimary: "#303030",
+    },
   },
   plugins: [],
 };

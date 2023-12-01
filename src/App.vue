@@ -1,11 +1,14 @@
+<script setup lang="ts">
+import { MainHeader, MainSidebar } from "@/components";
+</script>
 <template>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link>|
-    <router-link to="/about">About</router-link>
+  <div class="flex h-screen flex-col">
+    <MainHeader />
+    <div class="flex gap-[20px]">
+      <MainSidebar />
+      <router-view />
+    </div>
   </div>
-  <img alt="Vue logo" src="@/assets/images/logo.png" width="120" /> -->
-  <router-view />
-  <!-- <div class="w-[100px] h-[100px] bg-black"></div> -->
 </template>
 
 <style lang="scss"></style>
