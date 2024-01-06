@@ -2,6 +2,11 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: "/auth",
+    name: "auth",
+    component: () => import("../modules/pages/auth-page.vue"),
+  },
+  {
     path: "/k/main",
     name: "main",
     component: () => import("../modules/pages/main-page.vue"),

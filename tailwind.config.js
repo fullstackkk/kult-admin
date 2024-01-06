@@ -16,23 +16,14 @@ module.exports = {
       desktop: "1440px",
       // => @media (min-width: 1440px) { ... }
     },
-    maxWidth: ({ theme, breakpoints }) => ({
-      none: "none",
-      0: "0px",
-      sm: "320px",
-      lg: "768px",
-      xl: "1440px",
-      "2xl": "1920px",
-      full: "100%",
-      min: "min-content",
-      max: "max-content",
-      fit: "fit-content",
-      ...breakpoints(theme("screens")),
-    }),
     // надо бы настроить переменные тайлвинда что б потом темы замутить
     colors: {
       primary: "#E2DEFF",
       textprimary: "#303030",
+      purpl: "#D5D1FF",
+      purplprimary: "#FAFAFA",
+      grey: "#A5A5A5",
+      greyprimary: "#DCDCDD",
     },
   },
   plugins: [],

@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import { PageWrapper } from "@/components";
-import filterIcon from "@/assets/svg/filter-icon.vue";
-import searchIcon from "@/assets/svg/search-icon.vue";
+import { searchIcon } from "@/assets/svg";
+import { storeToRefs } from "pinia";
+import { IconConstructor } from "@/components";
+import { MainButton } from "@/components/ui";
+import { useInstructorService } from "@/store/modules/instructor";
+import { onMounted } from "vue";
 
-import iconConstructor from "@/components/icon-constructor.vue";
+const instructor = useInstructorService();
+
+const instructorList = storeToRefs(instructor);
+
+onMounted(() => instructor.getInstructorList());
 </script>
 
 <template>
@@ -11,14 +19,7 @@ import iconConstructor from "@/components/icon-constructor.vue";
     <template #header-title>Заявки на обучение</template>
     <template #filters-place>
       <div class="flex items-center justify-start gap-[20px]">
-        <button
-          class="flex cursor-pointer items-center justify-center gap-[4px] rounded-[20px] border border-[#E2DEFF] px-[16px] py-[8px]"
-        >
-          <icon-constructor :height="24" :width="24">
-            <filter-icon />
-          </icon-constructor>
-          Фильтр
-        </button>
+        <main-button text-content="Фильтр" left-icon="filterIcon"></main-button>
         <label class="relative">
           <icon-constructor
             class="absolute left-[16px] top-[8px]"
@@ -33,6 +34,10 @@ import iconConstructor from "@/components/icon-constructor.vue";
             placeholder="Поиск клиента..."
           />
         </label>
+        <main-button
+          text-content="Добавить заявку"
+          rightIcon="plusIcon"
+        ></main-button>
       </div>
     </template>
   </page-wrapper>

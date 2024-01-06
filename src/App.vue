@@ -1,14 +1,6 @@
-<script setup lang="ts">
-import { MainHeader, MainSidebar } from "@/components";
-</script>
+<script setup lang="ts"></script>
 <template>
-  <div class="flex h-screen flex-col">
-    <MainHeader />
-    <div class="flex gap-[20px]">
-      <MainSidebar />
-      <router-view />
-    </div>
-  </div>
+  <router-view />
 </template>
 
 <style lang="scss"></style>
