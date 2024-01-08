@@ -15,23 +15,24 @@
 // POST auth/login
 // лог пасс для теста leonid leonid
 
-import { api } from "@/services/api";
+// import { api } from "@/http/api";
 
-export default class InstructorService {
-  async getInstructor(id: string) {
-    const res = await fetch(`${api}/instructor/:${id}`);
-    return res;
-  }
-  async getInstructorList() {
-    const res = await fetch(`${api}/instructor/get_list`);
-    return res;
-  }
-  async editInstructorById(id: string) {
-    const res = await fetch(`${api}/instructor/edit/:${id}`);
-    return res;
-  }
-  async createInstructorById() {
-    const res = await fetch(`${api}/instructor/create}`);
-    return res;
-  }
-}
+// export default class InstructorService {
+//   async getInstructor(id: string) {
+//     const res = await fetch(`${api}/instructor/:${id}`);
+//     return res;
+//   }
+//   async getInstructorList() {
+//     const res = await fetch(`${api}/instructor/get_list`);
+//     return res;
+//   }
+//   async editInstructorById(id: string) {
+//     const res = await fetch(`${api}/instructor/edit/:${id}`);
+//     return res;
+//   }
+//   async createInstructorById() {
+//     const res = await fetch(`${api}/instructor/create}`);
+//     return res;
+//   }
+// }
+export const a = 4;

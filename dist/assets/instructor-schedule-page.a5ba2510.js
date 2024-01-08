@@ -1,0 +1,1 @@
+import"./icon-constructor.ae5893dd.js";import{_ as e}from"./page-wrapper.753ae526.js";import{f as o,o as r,c as a,u as s}from"./vendor.38f51c26.js";import"./index.fea40542.js";const _=o({setup(t){return(c,n)=>(r(),a(s(e)))}});export{_ as default};

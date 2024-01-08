@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { PageWrapper } from "@/components";
 import { searchIcon } from "@/assets/svg";
-import { storeToRefs } from "pinia";
+// import { storeToRefs } from "pinia";
 import { IconConstructor } from "@/components";
 import { MainButton } from "@/components/ui";
-import { useInstructorService } from "@/store/modules/instructor";
-import { onMounted } from "vue";
+// import { useInstructorService } from "@/store/modules/instructor";
+// import { onMounted } from "vue";
 
-const instructor = useInstructorService();
+// const instructor = useInstructorService();
 
-const instructorList = storeToRefs(instructor);
+// const instructorList = storeToRefs(instructor);
 
-onMounted(() => instructor.getInstructorList());
+// onMounted(() => instructor.getInstructorList());
 </script>
 
 <template>

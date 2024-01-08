@@ -1,23 +1,25 @@
-import { defineStore } from "pinia";
+// import { defineStore } from "pinia";
 
-import InstructorService from "@/services/instructor-service";
+export const a = 4;
 
-const instructorService = new InstructorService();
+// import InstructorService from "@/services/instructor-service";
 
-export const useInstructorService = defineStore("instructor", {
-  state: () => ({
-    instructors: <any>[],
-  }),
-  getters: {
-    instructor: (state) =>
-      state.instructors.map((el: { name: string }) => el.name),
-  },
-  actions: {
-    async getInstructorList() {
-      return await instructorService
-        .getInstructorList()
-        .then((res) => (this.$state.instructors = res.json()))
-        .then((res) => console.log(res));
-    },
-  },
-});
+// const instructorService = new InstructorService();
+
+// export const useInstructorService = defineStore("instructor", {
+//   state: () => ({
+//     instructors: <any>[],
+//   }),
+//   getters: {
+//     instructor: (state) =>
+//       state.instructors.map((el: { name: string }) => el.name),
+//   },
+//   actions: {
+//     async getInstructorList() {
+//       return await instructorService
+//         .getInstructorList()
+//         .then((res) => (this.$state.instructors = res.json()))
+//         .then((res) => console.log(res));
+//     },
+//   },
+// });

@@ -1,6 +1,36 @@
-import { api } from "@/services/api";
+import $api from "@/http/api";
+import { AxiosResponse } from "axios";
+import { AuthResponse } from "@/models/response/AuthResponse";
+// POST auth/login
+// лог пасс для теста leonid leonid
 
-async function authAdmin(id: string) {
-  const res = await fetch(`${api}/instructor/:${id}`);
-  return res;
+export default class AuthService {
+  static async login(
+    username: string,
+    password: string
+  ): Promise<AxiosResponse<AuthResponse>> {
+    return $api.post<AuthResponse>("/auth/login", {
+      username,
+      password,
+    });
+    // .then(res=>res.data ) проверочный комент
+  }
+  static async registration(
+    username: string,
+    password: string
+  ): Promise<AxiosResponse<AuthResponse>> {
+    return $api.post<AuthResponse>("/auth/login", {
+      username,
+      password,
+    });
+  }
+  static async logout(
+    username: string,
+    password: string
+  ): Promise<AxiosResponse<AuthResponse>> {
+    return $api.post<AuthResponse>("/auth/login", {
+      username,
+      password,
+    });
+  }
 }
