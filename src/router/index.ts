@@ -2,34 +2,40 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/auth",
+    path: "/",
     name: "auth",
+    meta: { layout: "auth" },
     component: () => import("../modules/pages/auth-page.vue"),
   },
   {
-    path: "/k/main",
+    path: "/main",
     name: "main",
+    meta: { layout: "main", auth: true },
     component: () => import("../modules/pages/main-page.vue"),
   },
   {
-    path: "/k/instructor-schedule",
+    path: "/instructor-schedule",
     name: "instructor-schedule",
+    meta: { layout: "main", auth: true },
     component: () => import("../modules/pages/instructor-schedule-page.vue"),
   },
   {
-    path: "/k/applications-for-training",
+    path: "/applications-for-training",
     name: "applications-for-training",
+    meta: { layout: "main", auth: true },
     component: () =>
       import("../modules/pages/applications-for-training-page.vue"),
   },
   {
-    path: "/k/student-table",
+    path: "/student-table",
     name: "student-table",
+    meta: { layout: "main", auth: true },
     component: () => import("../modules/pages/student-table-page.vue"),
   },
   {
-    path: "/k/list-of-instructors",
+    path: "/list-of-instructors",
     name: "list-of-instructors",
+    meta: { layout: "main", auth: true },
     component: () => import("../modules/pages/list-of-instructors-page.vue"),
   },
 ];
