@@ -2,20 +2,32 @@
 import authBg from "@/assets/images/auth-bg.png";
 import { MainButton, MainInput } from "@/components/ui";
 import { reactive } from "vue";
+import AuthService from "@/services/auth-service";
+import { useUserStore } from "@/store/modules/user";
 
 interface IState {
   logVaalue: string;
   passValue: string;
+  response: any | null;
 }
+const userStore = useUserStore();
 const state = reactive<IState>({
   logVaalue: "",
   passValue: "",
+  response: null,
 });
 function setLog(log: string) {
   state.logVaalue = log;
 }
 function setPass(pass: string) {
   state.passValue = pass;
+}
+function login() {
+  if (!state.logVaalue && !state.passValue) {
+    return;
+  }
+  userStore.login(state.logVaalue, state.passValue);
+  // state.response = AuthService.login(state.logVaalue, state.passValue);
 }
 </script>
 
@@ -45,6 +57,7 @@ function setPass(pass: string) {
         <main-button
           class="border border-greyprimary bg-purpl"
           text-content="Войти"
+          @click="login"
         ></main-button>
         <!-- <button class="text-grey">Забыли пароль ?</button> -->
       </div>

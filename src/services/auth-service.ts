@@ -15,22 +15,16 @@ export default class AuthService {
     });
     // .then(res=>res.data ) проверочный комент
   }
-  static async registration(
-    username: string,
-    password: string
-  ): Promise<AxiosResponse<AuthResponse>> {
-    return $api.post<AuthResponse>("/auth/login", {
-      username,
-      password,
-    });
-  }
-  static async logout(
-    username: string,
-    password: string
-  ): Promise<AxiosResponse<AuthResponse>> {
-    return $api.post<AuthResponse>("/auth/login", {
-      username,
-      password,
-    });
+  // static async registration(
+  //   username: string,
+  //   password: string
+  // ): Promise<AxiosResponse<AuthResponse>> {
+  //   return $api.post<AuthResponse>("/auth/login", {
+  //     username,
+  //     password,
+  //   });
+  // }
+  static async logout(): Promise<AxiosResponse<AuthResponse>> {
+    return $api.post<AuthResponse>("/auth/login");
   }
 }
