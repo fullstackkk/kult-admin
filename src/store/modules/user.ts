@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
 import AuthService from "@/services/auth-service";
+import axios from "axios";
+import { AuthResponse } from "@/models/response/AuthResponse";
+import { API_URL } from "@/http/api";
 interface IState {
   user: any;
   isAuth: boolean;
@@ -38,6 +41,14 @@ export const useUserStore = defineStore("user", {
         localStorage.removeItem("token");
         this.setIsAuth(false);
         // this.setUser({});  это пока не рабочая логика
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async checkAuth() {
+      try {
+        const response = await axios.get<AuthResponse>(`${API_URL}/refresh`);
       } catch (error) {
         console.log(error);
       }

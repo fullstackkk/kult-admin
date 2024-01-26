@@ -2,19 +2,16 @@
 import authBg from "@/assets/images/auth-bg.png";
 import { MainButton, MainInput } from "@/components/ui";
 import { reactive } from "vue";
-import AuthService from "@/services/auth-service";
 import { useUserStore } from "@/store/modules/user";
 
 interface IState {
   logVaalue: string;
   passValue: string;
-  response: any | null;
 }
 const userStore = useUserStore();
 const state = reactive<IState>({
   logVaalue: "",
   passValue: "",
-  response: null,
 });
 function setLog(log: string) {
   state.logVaalue = log;
@@ -27,7 +24,6 @@ function login() {
     return;
   }
   userStore.login(state.logVaalue, state.passValue);
-  // state.response = AuthService.login(state.logVaalue, state.passValue);
 }
 </script>
 
@@ -49,10 +45,12 @@ function login() {
         <main-input
           placeholder="Введите логин"
           @input="({ value }) => setLog(value)"
+          @submit="login"
         />
         <main-input
           placeholder="Введите пароль"
           @input="({ value }) => setPass(value)"
+          @submit="login"
         />
         <main-button
           class="border border-greyprimary bg-purpl"

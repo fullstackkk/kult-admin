@@ -22,22 +22,22 @@ const user = {
 const links: ILinks[] = [
   {
     icon: calendar,
-    path: "/k/instructor-schedule",
+    path: "/instructor-schedule",
     name: "График работы",
   },
   {
     icon: notebook,
-    path: "/k/applications-for-training",
+    path: "/applications-for-training",
     name: "Заявки на обучение",
   },
   {
     icon: users,
-    path: "/k/student-table",
+    path: "/student-table",
     name: "Таблица учеников",
   },
   {
     icon: usericon,
-    path: "/k/list-of-instructors",
+    path: "/list-of-instructors",
     name: "Список инструкторов",
   },
 ];

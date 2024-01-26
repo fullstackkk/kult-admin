@@ -1,3 +1,7 @@
+import $api from "@/http/api";
+import { AxiosResponse } from "axios";
+import { AuthResponse } from "@/models/response/AuthResponse";
+
 // GET instructor/:id
 // POST instructor/get_list
 // PATCH instructor/edit/:id
@@ -17,22 +21,18 @@
 
 // import { api } from "@/http/api";
 
-// export default class InstructorService {
-//   async getInstructor(id: string) {
-//     const res = await fetch(`${api}/instructor/:${id}`);
-//     return res;
-//   }
-//   async getInstructorList() {
-//     const res = await fetch(`${api}/instructor/get_list`);
-//     return res;
-//   }
-//   async editInstructorById(id: string) {
-//     const res = await fetch(`${api}/instructor/edit/:${id}`);
-//     return res;
-//   }
-//   async createInstructorById() {
-//     const res = await fetch(`${api}/instructor/create}`);
-//     return res;
-//   }
-// }
+export default class InstructorService {
+  static async getInstructor(id: string) {
+    return $api.get<any>(`/instructor/:${id}`);
+  }
+  static async getInstructorList() {
+    return $api.post<any>("/instructor/get_list");
+  }
+  static async editInstructorById(id: string) {
+    return $api.patch<any>(`/instructor/edit/:${id}`);
+  }
+  static async createInstructorById() {
+    return $api.put<any>("/instructor/create");
+  }
+}
 export const a = 4;

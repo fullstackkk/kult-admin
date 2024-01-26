@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-
+import { useUserStore } from "@/store/modules/user";
+// const userStore = useUserStore();
+// const isAuthenticated = userStore.isAuth;
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -45,4 +47,15 @@ const router = createRouter({
   routes,
 });
 
+// router.beforeEach(async (to, from) => {
+//   if (
+//     // проверка, что пользователь авторизован
+//     !isAuthenticated &&
+//     // ❗️ Избежать бесконечного перенаправления
+//     to.name !== "auth"
+//   ) {
+//     // перенаправить пользователя на страницу входа
+//     return { name: "auth" };
+//   }
+// });
 export default router;

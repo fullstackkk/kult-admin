@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// пока иконками мы не занимаемся
 import { searchIcon } from "@/assets/svg";
 import { IconConstructor } from "@/components";
 import { reactive, watch } from "vue";
@@ -62,13 +63,15 @@ function syncInputValue() {
 function onFocus() {
   state.focused = true;
   emit("focus");
-  console.log(state.value);
 }
 
 function blur() {
   state.value = state.value.trim();
   emit("blur", state.value);
-  console.log(state.value);
+}
+function submit() {
+  emit("submit", state.value);
+  console.log("submit");
 }
 
 watch(
@@ -94,6 +97,7 @@ watch(
       @input="onInput"
       @focus="onFocus()"
       @blur="blur()"
+      @keyup.enter="submit()"
     />
     <slot></slot>
     <!-- <icon-constructor

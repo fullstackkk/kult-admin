@@ -24,7 +24,7 @@ export default class AuthService {
   //     password,
   //   });
   // }
-  static async logout(): Promise<AxiosResponse<AuthResponse>> {
-    return $api.post<AuthResponse>("/auth/login");
-  }
+  // static async logout(): Promise<AxiosResponse<AuthResponse>> {
+  //   return $api.post<AuthResponse>("/auth/login");
+  // }
 }

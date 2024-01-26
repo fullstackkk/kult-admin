@@ -3,5 +3,7 @@ import { PageWrapper } from "@/components";
 </script>
 
 <template>
-  <page-wrapper></page-wrapper>
+  <page-wrapper>
+    <input type="file" />
+  </page-wrapper>
 </template>
