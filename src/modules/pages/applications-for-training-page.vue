@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { PageWrapper } from "@/components";
 import { searchIcon } from "@/assets/svg";
-// import { storeToRefs } from "pinia";
+
 import { IconConstructor } from "@/components";
 import { MainButton } from "@/components/ui";
+
+import { useApplicationStore } from "@/store/modules/application";
+import { onMounted } from "vue";
+const applicationStore = useApplicationStore();
 // import { useInstructorService } from "@/store/modules/instructor";
 // import { onMounted } from "vue";
 
@@ -11,7 +15,7 @@ import { MainButton } from "@/components/ui";
 
 // const instructorList = storeToRefs(instructor);
 
-// onMounted(() => instructor.getInstructorList());
+onMounted(() => applicationStore.getApplications());
 </script>
 
 <template>

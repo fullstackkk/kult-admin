@@ -9,6 +9,8 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: "auth" },
     component: () => import("../modules/pages/auth-page.vue"),
   },
+  // это моковая страница на случай если в системе понадобится что то вроде главно страницы
+  // в данный момент за главную будет открыватся календарь с рассписанием инструкторов
   {
     path: "/main",
     name: "main",
@@ -47,15 +49,19 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach(async (to, from) => {
-//   if (
-//     // проверка, что пользователь авторизован
-//     !isAuthenticated &&
-//     // ❗️ Избежать бесконечного перенаправления
-//     to.name !== "auth"
-//   ) {
-//     // перенаправить пользователя на страницу входа
-//     return { name: "auth" };
-//   }
-// });
+router.beforeEach(async (to, from) => {
+  const userStore = useUserStore();
+  if (
+    // проверка, что пользователь авторизован
+    !userStore.isAuth &&
+    // ❗️ Избежать бесконечного перенаправления
+    to.name !== "auth"
+  ) {
+    // перенаправить пользователя на страницу входа
+
+    console.log("отработала гарда auth");
+    return { name: "auth" };
+  }
+  console.log("отработала гарда роутера");
+});
 export default router;

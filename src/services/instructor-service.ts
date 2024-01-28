@@ -1,6 +1,6 @@
 import $api from "@/http/api";
-import { AxiosResponse } from "axios";
-import { AuthResponse } from "@/models/response/AuthResponse";
+// import { AxiosResponse } from "axios";
+// import { AuthResponse } from "@/models/response/AuthResponse";
 
 // GET instructor/:id
 // POST instructor/get_list
@@ -15,11 +15,6 @@ import { AuthResponse } from "@/models/response/AuthResponse";
 // POST application/get_list
 // PATCH application/edit/:id
 // PUT application/create
-
-// POST auth/login
-// лог пасс для теста leonid leonid
-
-// import { api } from "@/http/api";
 
 export default class InstructorService {
   static async getInstructor(id: string) {
