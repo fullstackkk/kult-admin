@@ -1,18 +1,21 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import authBg from "@/assets/images/auth-bg.png";
 import { MainButton, MainInput } from "@/components/ui";
-import { reactive } from "vue";
+import { computed, onMounted, reactive, watch } from "vue";
 import { useUserStore } from "@/store/modules/user";
 
 interface IState {
   logVaalue: string;
   passValue: string;
 }
+const router = useRouter();
 const userStore = useUserStore();
 const state = reactive<IState>({
   logVaalue: "",
   passValue: "",
 });
+const isAuthenticated = computed(() => userStore.$state.isAuth);
 function setLog(log: string) {
   state.logVaalue = log;
 }
@@ -25,6 +28,16 @@ function login() {
   }
   userStore.login(state.logVaalue, state.passValue);
 }
+watch(isAuthenticated, () => {
+  if (isAuthenticated) {
+    router.push("/instructor-schedule");
+  }
+});
+onMounted(() => {
+  if (localStorage.getItem("token")) {
+    userStore.setIsAuth(true);
+  }
+});
 </script>
 
 <template>
