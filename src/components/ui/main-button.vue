@@ -47,16 +47,26 @@ interface IProps {
   leftIcon: string;
   rightIcon: string;
 }
+
 const props = withDefaults(defineProps<IProps>(), {
   textContent: "",
   leftIcon: "",
   rightIcon: "",
 });
+interface IEmits {
+  (e: "click"): void;
+}
+const emit = defineEmits<IEmits>();
+
+function click() {
+  emit("click");
+}
 </script>
-``
+
 <template>
   <button
     class="flex cursor-pointer items-center justify-center gap-[4px] rounded-[20px] border border-[#E2DEFF] px-[16px] py-[8px] hover:bg-purpl"
+    @click="click"
   >
     <icon-constructor v-if="leftIcon" :height="24" :width="24">
       <component :is="icons[leftIcon]" />

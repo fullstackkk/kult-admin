@@ -1,5 +1,5 @@
 export interface IApplication {
-  isActive: boolean;
+  isActive?: boolean;
   number: number;
   fio: {
     firstname: string;
@@ -7,8 +7,8 @@ export interface IApplication {
     patronomic: string;
   };
   phone: number;
-  creationDate: number;
-  regDate: number;
+  creationDate?: number;
+  regDate?: number;
   filial: "Междагорье" | "Озерки";
   chosenCourse: "Мото A" | "A+B" | "Профи" | "Оптима" | "Экспресс" | "Эконом";
   cpp: "МКПП" | "АКПП";
@@ -23,7 +23,14 @@ export interface IApplication {
     | "Завершил обучение";
   issueDate?: number;
   paymentType: "Наличка" | "Безнал";
-  income: number;
-  discount: number;
-  comment: string;
+  income?: number;
+  discount?: number;
+  comment?: string;
+}
+export interface IApplicationGetListFilter {
+  filter: any;
+  pagination: {
+    skip: number;
+    limit: number;
+  };
 }

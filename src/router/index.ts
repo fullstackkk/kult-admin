@@ -27,7 +27,10 @@ const routes: Array<RouteRecordRaw> = [
     path: "/applications-for-training",
     name: "applications-for-training",
     meta: { layout: "main", auth: true },
-    component: () => import("../modules/pages/applications-for-training/applications-for-training-page.vue"),
+    component: () =>
+      import(
+        "../modules/pages/applications-for-training/applications-for-training-page.vue"
+      ),
   },
   {
     path: "/student-table",
@@ -58,9 +61,7 @@ router.beforeEach(async (to, from) => {
   ) {
     // перенаправить пользователя на страницу входа
 
-    console.log("отработала гарда auth");
     return { name: "auth" };
   }
-  console.log("отработала гарда роутера");
 });
 export default router;

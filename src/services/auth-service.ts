@@ -1,8 +1,6 @@
 import $api from "@/http/api";
 import { AxiosResponse } from "axios";
 import { IAuthResponse } from "@/models/response/AuthResponse";
-// POST auth/login
-// лог пасс для теста leonid leonid
 
 export default class AuthService {
   static async login(
