@@ -152,8 +152,8 @@ let openModalWindow = (item: any) => {
 <template>
   <div class="h-auto overflow-hidden rounded-[20px] border border-[#303030]">
     <table width="100%">
-      <thead :bgcolor="'#FAFAFA'">
-        <tr>
+      <thead class="bg-[#FAFAFA] dark:bg-[#262C36]">
+        <tr class="dark:text-[#757575]">
           <th class="w-[24px]"></th>
           <th :align="'left'" class="w-[102px] pl-[10px]">Операция</th>
           <th :align="'left'" class="w-[138px] pl-[10px]">ФИО</th>
@@ -166,45 +166,41 @@ let openModalWindow = (item: any) => {
           <th class="w-[40px]"></th>
         </tr>
       </thead>
-      <tbody
-        v-for="item in data"
-        @click="openModalWindow(item), emit('click', { item })"
-        :bgcolor="item.id % 2 == 0 ? '#FFFFFF' : '#F1F3F4'"
-      >
-        <tr>
+      <tbody v-for="item in data" :class="item.id % 2 == 0 ? 'dark:bg-[#191D23] bg-[#FFFFFF]' : 'dark:bg-[#262C36] bg-[#F1F3F4]'">
+        <tr class="">
           <td :align="'center'" class="max-w-[24px] pl-[10px]">
             <input class="scale-[1.85] cursor-pointer" type="checkbox" />
           </td>
           <td :align="'left'" class="max-w-[102px] cursor-pointer pl-[10px]">
-            <p class="w-[102px] cursor-pointer">{{ item.operationTime }}</p>
-            <p class="w-[89px] cursor-pointer">Заявка №{{ item.operationNumber }}</p>
+            <p class="w-[102px] cursor-pointer dark:text-[#E4E4E4]">{{ item.operationTime }}</p>
+            <p class="w-[89px] cursor-pointer dark:text-[#E4E4E4]">Заявка №{{ item.operationNumber }}</p>
           </td>
-          <td :align="'left'" class="max-w-[138px] pl-[10px]">
-            <p class="w-[120px] cursor-pointer truncate">{{ item.name }}</p>
+          <td @click="openModalWindow(item), emit('click', { item })" :align="'left'" class="max-w-[138px] pl-[10px]">
+            <p class="w-[120px] cursor-pointer truncate dark:text-[#E4E4E4]">{{ item.name }}</p>
           </td>
           <td :align="'left'" class="pl-[10px]cursor-pointer max-w-[138px]">
-            <p class="w-[114px] cursor-pointer truncate">{{ item.phoneNumber }}</p>
+            <p class="w-[114px] cursor-pointer truncate dark:text-[#E4E4E4]">{{ item.phoneNumber }}</p>
           </td>
           <td :align="'left'" class="max-w-[138px] pl-[10px]">
             <span class="flex items-center gap-[5px]">
               <p class="size-[8px] rounded-[2px] bg-[#702785]"></p>
-              <p class="w-[105px] cursor-pointer truncate">{{ item.branch }}</p>
+              <p class="w-[105px] cursor-pointer truncate dark:text-[#E4E4E4]">{{ item.branch }}</p>
             </span>
           </td>
           <td :align="'left'" class="max-w-[150px] pl-[10px]">
-            <p class="w-[128px] cursor-pointer truncate">{{ item.class }}</p>
+            <p class="w-[128px] cursor-pointer truncate dark:text-[#E4E4E4]">{{ item.class }}</p>
           </td>
           <td :align="'left'" class="max-w-[100px] pl-[10px]">
-            <p class="w-[64px] cursor-pointer truncate">{{ item.status }}</p>
+            <p class="w-[64px] cursor-pointer truncate dark:text-[#E4E4E4]">{{ item.status }}</p>
           </td>
           <td :align="'left'" class="max-w-[95px] pl-[10px]">
-            <p class="w-[59px] cursor-pointer truncate">{{ item.dateRegistration }}</p>
+            <p class="w-[59px] cursor-pointer truncate dark:text-[#E4E4E4]">{{ item.dateRegistration }}</p>
           </td>
           <td :align="'left'" class="relative max-w-[115px] pl-[10px]">
             <icon-constructor class="absolute left-[8px] top-[13px] cursor-pointer" :height="24" :width="24">
               <cardIcon />
             </icon-constructor>
-            <p class="w-[96px] cursor-pointer truncate pl-[27px]">{{ item.income }},00</p>
+            <p class="w-[96px] cursor-pointer truncate pl-[27px] dark:text-[#E4E4E4]">{{ item.income }},00</p>
           </td>
           <td class="relative max-w-[40px]">
             <icon-constructor class="absolute left-[8px] top-[13px] cursor-pointer" :height="24" :width="24">

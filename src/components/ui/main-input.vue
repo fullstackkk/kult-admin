@@ -91,7 +91,7 @@ watch(
       :required="props.inputRequired"
       :maxlength="100"
       type="text"
-      class="flex cursor-pointer items-center justify-center gap-[4px] rounded-[20px] border border-[#E2DEFF] bg-purplprimary px-[16px] py-[8px]"
+      class="flex cursor-pointer items-center justify-center gap-[4px] rounded-[20px] border border-[#E2DEFF] bg-purplprimary px-[16px] py-[8px] dark:bg-[#262C36] dark:border-[#576776]"
       autocomplete="off"
       name="address-string"
       @input="onInput"
