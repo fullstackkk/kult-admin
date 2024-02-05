@@ -5,18 +5,16 @@ import { closeIcon, calendarIcon } from "@/assets/svg";
 interface Iprops {
   click: boolean;
   data: {
-    item: {
-      id: number;
-      operationTime: string;
-      operationNumber: number;
-      name: string;
-      phoneNumber: string;
-      branch: string;
-      class: string;
-      status: string;
-      dateRegistration: string;
-      income: number;
-    };
+    id: number;
+    operationTime: string;
+    operationNumber: number;
+    name: string;
+    phoneNumber: string;
+    branch: string;
+    class: string;
+    status: string;
+    dateRegistration: string;
+    income: number;
   };
 }
 
@@ -54,7 +52,7 @@ const emit = defineEmits(["click"]);
               <p class="mb-[5px]">Фамилия Имя Отчество</p>
               <input
                 class="h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
-                :value="props.data.item.name"
+                :value="props.data.name"
                 type="text"
               />
             </div>
@@ -62,7 +60,7 @@ const emit = defineEmits(["click"]);
               <p class="mb-[5px]">Номер</p>
               <input
                 class="h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
-                :value="props.data.item.phoneNumber"
+                :value="props.data.phoneNumber"
                 type="text"
               />
             </div>
@@ -71,7 +69,7 @@ const emit = defineEmits(["click"]);
               <select
                 class="select h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] px-[16px] dark:border-[#576776] dark:bg-[#262C36]"
               >
-                <option class="pr-[10px]">{{ props.data.item.branch }}</option>
+                <option class="pr-[10px]">{{ props.data.branch }}</option>
               </select>
             </div>
           </div>
@@ -134,7 +132,7 @@ const emit = defineEmits(["click"]);
             <p class="mb-[5px]">Дата оформления</p>
             <input
               class="h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
-              :value="props.data.item.dateRegistration"
+              :value="props.data.dateRegistration"
               type="text"
             />
             <IconConstructor class="absolute top-[40px] left-[345px]" @click="emit('click')">
@@ -153,7 +151,7 @@ const emit = defineEmits(["click"]);
             <p class="mb-[5px]">Доход</p>
             <input
               class="h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
-              :value="props.data.item.income + ',00 ₽'"
+              :value="props.data.income + ',00 ₽'"
               type="text"
             />
           </div>
