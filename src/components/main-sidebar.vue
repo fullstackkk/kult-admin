@@ -61,31 +61,31 @@ function logout() {
 </script>
 <template>
   <div
-    class="flex h-full w-[290px] flex-col items-center rounded-[50px] border-[8px] border-solid border-[#E2DEFF] px-5 pt-[40px]"
+    class="flex h-full w-[290px] flex-col items-center rounded-[50px] border-[8px] border-solid border-[#E2DEFF] px-5 pt-[40px] dark:bg-[#191D23] dark:border-[#1C232C]"
   >
     <img class="h-[100px] w-[100px]" :src="avatar" alt="пользователь" />
-    <p class="mt-[20px] text-center">
+    <p class="mt-[20px] text-center dark:text-[#E4E4E4]">
       {{ user.name }} <br />
       {{ user.surname }}
     </p>
-    <p class="mt-[20px]">{{ userEmail }}</p>
+    <p class="mt-[20px] dark:text-[#757575]">{{ userEmail }}</p>
     <div class="mt-[60px] flex flex-col gap-[20px]">
       <router-link
         v-for="link in links"
         :key="link.path"
-        class="flex h-[48px] items-center justify-start gap-[10px]"
+        class="flex h-[48px] items-center justify-start gap-[10px] dark:text-[#E4E4E4]"
         :to="link.path"
       >
         <icon-constructor>
-          <component :is="link.icon" />
+          <component :is="link.icon" class="dark:stroke-[#E4E4E4]" />
         </icon-constructor>
         <p>{{ link.name }}</p>
       </router-link>
     </div>
     <div class="mt-[60px] flex items-center justify-center gap-[10px]">
-      <p class="cursor-pointer" @click.stop="logout">Выйти</p>
+      <p class="cursor-pointer dark:text-[#E4E4E4]" @click.stop="logout">Выйти</p>
       <icon-constructor>
-        <logouticon />
+        <logouticon class="dark:stroke-[#E4E4E4]" />
       </icon-constructor>
     </div>
   </div>
