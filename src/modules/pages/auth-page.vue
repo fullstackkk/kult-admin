@@ -30,7 +30,7 @@ function login() {
 }
 watch(isAuthenticated, () => {
   if (isAuthenticated) {
-    router.push("/instructor-schedule");
+    router.push("/applications-for-training");
   }
 });
 onMounted(() => {

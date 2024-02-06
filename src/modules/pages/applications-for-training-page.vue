@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { PageWrapper } from "@/components";
 import { searchIcon } from "@/assets/svg";
-// import { storeToRefs } from "pinia";
 import { IconConstructor } from "@/components";
 import { MainButton } from "@/components/ui";
 
@@ -10,15 +9,10 @@ import { default as Table } from "../reused-models/table/table.vue";
 import { default as TableBody } from "../reused-models/table/table-body.vue";
 import { default as Popup } from "../reused-models/popup/popup.vue";
 import { ItableBody } from "@/models/table/tableBodyTempate";
-import { Ref, onMounted, ref } from "vue";
+import { Ref, computed, onMounted, ref } from "vue";
+import { IApplication, IApplicationGetListFilter } from "@/models/response/ApllicationsResponse";
 
 const applicationStore = useApplicationStore();
-// import { useInstructorService } from "@/store/modules/instructor";
-// import { onMounted } from "vue";
-
-// const instructor = useInstructorService();
-
-// const instructorList = storeToRefs(instructor);
 
 let clickedData: Ref<any> = ref();
 let showPopup = ref(false);
@@ -233,7 +227,6 @@ let applicationData: Idata[] = [
     income: 9900.0,
   },
 ];
-
 const tableHeadData = {
   option1: { name: "", width: 24 },
   option2: { name: "Операция", width: 102 },
@@ -295,15 +288,27 @@ const reternTableBodyData = (applicationData: any) => {
         style: "relative max-w-[115px] pl-[10px] dark:text-[#E4E4E4]",
       },
       option10: {
-        text: `<icon-constructor class="absolute left-[8px] top-[50%] translate-y-[-50%]" :height="24" :width="24">
-              <editIcon />
-            </icon-constructor>`,
+        text: `<svg fill="none" class="w-[24px] h-[24px]" :viewBox="'0 0 24 24'">
+            <path
+              d="M4 15.9999V19.9999L8 19.9998L18.8686 9.13122C19.2646 8.7352 19.4627 8.53716 19.5369 8.30883C19.6021 8.10799 19.6021 7.89172 19.5369 7.69088C19.4627 7.46255 19.2646 7.26449 18.8686 6.86848L17.1313 5.13122L17.1307 5.13055C16.7351 4.73498 16.5373 4.53715 16.3091 4.46301C16.1082 4.39775 15.8919 4.39775 15.691 4.46301C15.4627 4.53719 15.2646 4.7352 14.8686 5.13122L4 15.9999Z"
+              stroke="#B9B9B9"
+              stroke-width="0.666667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>`,
         style: "relative max-w-[40px]",
       },
     },
   };
   return tableBodyData;
 };
+const applicationList = computed(() => applicationStore.$state.applications);
+
+function createApplication() {
+  // моковая функция что бы создать заявку
+  applicationStore.createApplication();
+}
 onMounted(() => applicationStore.getApplications());
 </script>
 

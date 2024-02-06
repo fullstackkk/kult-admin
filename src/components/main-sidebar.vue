@@ -5,15 +5,20 @@ import notebook from "@/assets/svg/notebook-icon.vue";
 import users from "@/assets/svg/users-icon.vue";
 import usericon from "@/assets/svg/user-icon.vue";
 import logouticon from "@/assets/svg/log-out-icon.vue";
+import { useRouter } from "vue-router";
 
 import iconConstructor from "@/components/icon-constructor.vue";
+import { useUserStore } from "@/store/modules/user";
+import { computed, watch } from "vue";
 
-import { computed } from "vue";
 interface ILinks {
   icon: any;
   path: string;
   name: string;
 }
+const router = useRouter();
+const isAuthenticated = computed(() => userStore.$state.isAuth);
+const userStore = useUserStore();
 const userEmail = computed(() => "konstantinopolsky@mail.ru");
 const user = {
   name: "Константин",
@@ -41,6 +46,18 @@ const links: ILinks[] = [
     name: "Список инструкторов",
   },
 ];
+watch(
+  () => isAuthenticated,
+  () => {
+    if (!isAuthenticated) {
+      router.push("/");
+    }
+  }
+);
+function logout() {
+  userStore.logout();
+  router.push("/");
+}
 </script>
 <template>
   <div
@@ -66,7 +83,7 @@ const links: ILinks[] = [
       </router-link>
     </div>
     <div class="mt-[60px] flex items-center justify-center gap-[10px]">
-      <p class="dark:text-[#E4E4E4]">Выйти</p>
+      <p class="cursor-pointer dark:text-[#E4E4E4]" @click.stop="logout">Выйти</p>
       <icon-constructor>
         <logouticon class="dark:stroke-[#E4E4E4]" />
       </icon-constructor>

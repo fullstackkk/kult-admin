@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import AuthService from "@/services/auth-service";
-// import axios from "axios";
 import { IAuthResponse } from "@/models/response/AuthResponse";
-// import { API_URL } from "@/http/api";
+
 interface IState {
   user: IAuthResponse | null;
   isAuth: boolean;
@@ -28,7 +27,7 @@ export const useUserStore = defineStore("user", {
         const response = await AuthService.login(username, password);
         // console.log(response.data);
         this.setUser({ token: JSON.stringify(response.data.token) });
-        localStorage.setItem("token", JSON.stringify(response.data.token));
+        localStorage.setItem("token", response.data.token);
         this.setIsAuth(true);
 
         // this.setUser(response.data.user) это пока не рабочая логика
@@ -45,6 +44,7 @@ export const useUserStore = defineStore("user", {
       // } catch (error) {
       //   console.log(error);
       // }
+      this.setIsAuth(false);
       localStorage.removeItem("token");
     },
 
