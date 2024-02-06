@@ -10,7 +10,10 @@ import { default as TableBody } from "../reused-models/table/table-body.vue";
 import { default as Popup } from "../reused-models/popup/popup.vue";
 import { ItableBody } from "@/models/table/tableBodyTempate";
 import { Ref, computed, onMounted, ref } from "vue";
-import { IApplication, IApplicationGetListFilter } from "@/models/response/ApllicationsResponse";
+import {
+  IApplication,
+  IApplicationGetListFilter,
+} from "@/models/response/ApllicationsResponse";
 
 const applicationStore = useApplicationStore();
 
@@ -240,7 +243,7 @@ const tableHeadData = {
   option10: { name: "", width: 40 },
 };
 
-const reternTableBodyData = (applicationData: any) => {
+function reternTableBodyData(applicationData: Idata) {
   let tableBodyData: ItableBody = {
     id: applicationData.id,
     body: {
@@ -302,7 +305,7 @@ const reternTableBodyData = (applicationData: any) => {
     },
   };
   return tableBodyData;
-};
+}
 const applicationList = computed(() => applicationStore.$state.applications);
 
 function createApplication() {
@@ -314,28 +317,34 @@ onMounted(() => applicationStore.getApplications());
 
 <template>
   <page-wrapper>
-    <template #header-title><p class="dark:text-[#FAFAFA]">Заявки на обучение</p></template>
+    <template #header-title
+      ><p class="dark:text-[#FAFAFA]">Заявки на обучение</p></template
+    >
     <template #filters-place>
       <div class="flex justify-between">
         <div class="flex gap-[20px]">
           <main-button
-            class="dark:bg-[#191D23] dark:border-[#262C36] dark:text-[#E4E4E4]"
+            class="dark:border-[#262C36] dark:bg-[#191D23] dark:text-[#E4E4E4]"
             text-content="Фильтр"
             left-icon="filterIcon"
           ></main-button>
           <label class="relative">
-            <icon-constructor class="absolute left-[16px] top-[8px]" :height="24" :width="24">
+            <icon-constructor
+              class="absolute left-[16px] top-[8px]"
+              :height="24"
+              :width="24"
+            >
               <search-icon class="dark:text-[#A5A5A5]" />
             </icon-constructor>
             <input
               type="text"
-              class="flex items-center justify-center gap-[4px] rounded-[20px] border border-[#E2DEFF] py-[8px] pl-[44px] dark:bg-[#262C36] dark:border-[#576776] dark:placeholder:text-[#A5A5A5]"
+              class="flex items-center justify-center gap-[4px] rounded-[20px] border border-[#E2DEFF] py-[8px] pl-[44px] dark:border-[#576776] dark:bg-[#262C36] dark:placeholder:text-[#A5A5A5]"
               placeholder="Поиск клиента..."
             />
           </label>
         </div>
         <main-button
-          class="dark:bg-[#191D23] dark:border-[#262C36] dark:text-[#E4E4E4]"
+          class="dark:border-[#262C36] dark:bg-[#191D23] dark:text-[#E4E4E4]"
           text-content="Добавить заявку"
           rightIcon="plusIcon"
         ></main-button>
@@ -344,7 +353,12 @@ onMounted(() => applicationStore.getApplications());
     <template #main-content>
       <Table :tableHeadData="tableHeadData">
         <template #table-stroke>
-          <TableBody @click="getClickedData" v-for="item in applicationData" :tableBody="reternTableBodyData(item)" />
+          <TableBody
+            :key="item.id"
+            @click="getClickedData"
+            v-for="item in applicationData"
+            :tableBody="reternTableBodyData(item)"
+          />
         </template>
       </Table>
       <Popup @click="getClickedData" :click="showPopup" :data="clickedData" />

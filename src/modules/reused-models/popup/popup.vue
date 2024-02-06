@@ -46,7 +46,9 @@ const emit = defineEmits(["click"]);
     <div class="mb-[30px] flex justify-between">
       <div>
         <div class="mb-[10px] flex gap-[10px]">
-          <div class="h-[273px] w-[408px] rounded-[10px] bg-[#E2DEFF] px-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]">
+          <div
+            class="h-[273px] w-[408px] rounded-[10px] bg-[#E2DEFF] px-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]"
+          >
             <p class="mt-[10px]">Главная информация</p>
             <div>
               <p class="mb-[5px]">Фамилия Имя Отчество</p>
@@ -73,12 +75,14 @@ const emit = defineEmits(["click"]);
               </select>
             </div>
           </div>
-          <div class="w-[408px] h-[273px] bg-[#E2DEFF] rounded-[10px] pl-[10px] pr-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]">
+          <div
+            class="h-[273px] w-[408px] rounded-[10px] bg-[#E2DEFF] px-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]"
+          >
             <p class="mt-[10px]">Об обучении</p>
             <div>
               <p class="mb-[5px]">Выбранный курс</p>
               <select
-                class="select h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] pl-[16px] pr-[16px] dark:border-[#576776] dark:bg-[#262C36]"
+                class="select h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] px-[16px] dark:border-[#576776] dark:bg-[#262C36]"
               >
                 <option class="pr-[10px]">Экспресс</option>
               </select>
@@ -86,7 +90,7 @@ const emit = defineEmits(["click"]);
             <div class="mt-[10px]">
               <p class="mb-[5px]">КПП</p>
               <select
-                class="select h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] pl-[16px] pr-[16px] dark:border-[#576776] dark:bg-[#262C36]"
+                class="select h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] px-[16px] dark:border-[#576776] dark:bg-[#262C36]"
               >
                 <option class="pr-[10px]">Механическая КПП</option>
               </select>
@@ -94,14 +98,16 @@ const emit = defineEmits(["click"]);
             <div class="mt-[10px]">
               <p class="mb-[5px]">Тип обучения</p>
               <select
-                class="select h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] pl-[16px] pr-[16px] dark:border-[#576776] dark:bg-[#262C36]"
+                class="select h-[40px] w-[388px] rounded-[20px] border border-[#CCC8F4] bg-[#FFFF] px-[16px] dark:border-[#576776] dark:bg-[#262C36]"
               >
                 <option class="pr-[10px]">Очное обучение</option>
               </select>
             </div>
           </div>
         </div>
-        <div class="w-[827px] h-[284px] bg-[#E2DEFF] rounded-[10px] p-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]">
+        <div
+          class="h-[284px] w-[827px] rounded-[10px] bg-[#E2DEFF] p-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]"
+        >
           <p class="mb-[15px]">Прочее</p>
           <p class="mb-[5px]">Откуда узнали?</p>
           <input
@@ -117,7 +123,9 @@ const emit = defineEmits(["click"]);
         </div>
       </div>
       <div>
-        <div class="w-[408px] h-[419px] bg-[#E2DEFF] rounded-[10px] p-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]">
+        <div
+          class="h-[419px] w-[408px] rounded-[10px] bg-[#E2DEFF] p-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4]"
+        >
           <p class="mb-[10px]">Финансовая информация</p>
           <div>
             <p class="mb-[5px]">Статус</p>
@@ -135,7 +143,10 @@ const emit = defineEmits(["click"]);
               :value="props.data.dateRegistration"
               type="text"
             />
-            <IconConstructor class="absolute top-[40px] left-[345px]" @click="emit('click')">
+            <IconConstructor
+              class="absolute left-[345px] top-[40px]"
+              @click="emit('click')"
+            >
               <calendarIcon />
             </IconConstructor>
           </div>
@@ -172,7 +183,9 @@ const emit = defineEmits(["click"]);
       >
         Сохранить
       </button>
-      <button class="h-[38px] w-[398px] rounded-[50px] bg-[#FFFFFF] dark:border-[#576776] dark:bg-[#262C36]">
+      <button
+        class="h-[38px] w-[398px] rounded-[50px] bg-[#FFFFFF] dark:border-[#576776] dark:bg-[#262C36]"
+      >
         Удалить заявку
       </button>
     </div>
