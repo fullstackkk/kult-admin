@@ -16,12 +16,20 @@ const props = defineProps<Iprops>();
 </script>
 
 <template>
-  <tr class="h-[44px]" :class="props.tableBody.id % 2 == 0 ? 'bg-[#FFFFFF] dark:bg-[#191D23]' : 'bg-[#F1F3F4] dark:bg-[#262C36]'">
+  <tr
+    class="h-[44px]"
+    :class="
+      props.tableBody.id % 2 == 0
+        ? 'bg-[#FFFFFF] dark:bg-[#191D23]'
+        : 'bg-[#F1F3F4] dark:bg-[#262C36]'
+    "
+  >
     <td
       v-for="item in props.tableBody.body"
       @click="openPopup(item?.click), emit('click', popupData[0])"
       v-html="item?.text"
       :class="item?.style"
+      :key="item?.text"
     ></td>
   </tr>
 </template>

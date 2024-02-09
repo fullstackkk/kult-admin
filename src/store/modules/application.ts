@@ -5,12 +5,12 @@ import {
   IApplicationGetListFilter,
 } from "@/models/response/ApllicationsResponse";
 interface IState {
-  applications: IApplication[] | null;
+  applications: IApplication[] | [];
 }
 
 export const useApplicationStore = defineStore("application", {
   state: (): IState => ({
-    applications: null,
+    applications: [],
   }),
 
   actions: {

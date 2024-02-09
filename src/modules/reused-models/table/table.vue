@@ -16,7 +16,7 @@ const props = defineProps<Iprops>();
 </script>
 
 <template>
-  <div class="h-[550px] overflow-y-scroll rounded-[20px] border border-[#303030]">
+  <!-- <div class="h-[550px] overflow-y-scroll rounded-[20px] border border-[#303030]">
     <table class="w-full">
       <thead class="bg-[#FAFAFA] dark:bg-[#262C36]">
         <tr class="dark:text-[#757575]">
@@ -34,7 +34,8 @@ const props = defineProps<Iprops>();
         <slot name="table-stroke"></slot>
       </tbody>
     </table>
-  </div>
+  </div> -->
+  <div></div>
 </template>
 
 <style scoped></style>
