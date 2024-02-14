@@ -11,7 +11,7 @@ const props = withDefaults(
 );
 
 const classes = computed(() => ({
-  "flex-col justify-center items-start": props.double,
+  "flex-col justify-center gap-[1px] items-start": props.double,
   "justify-start items-center": !props.double,
 }));
 const emits = defineEmits<{
