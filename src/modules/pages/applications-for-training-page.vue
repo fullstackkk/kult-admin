@@ -3,11 +3,15 @@ import { PageWrapper } from "@/components";
 import { searchIcon } from "@/assets/svg";
 import { IconConstructor } from "@/components";
 import { MainButton } from "@/components/ui";
-import { TableConstructor, StandardCell } from "../reused-models/table";
 import { useApplicationStore } from "@/store/modules/application";
+import {
+  TableConstructor,
+  StandardCell,
+  modalWindowConstructor,
+} from "../reused-models";
 
 import { IHeaders } from "@/models/table/Headers";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { IApplication } from "@/models/response/ApllicationsResponse";
 
 const applicationStore = useApplicationStore();
@@ -63,10 +67,27 @@ function createApplication() {
   // моковая функция что бы создать заявку
   applicationStore.createApplication();
 }
+
+let showModal = ref(false)
+
 onMounted(() => applicationStore.getApplications());
 </script>
-
 <template>
+  <teleport to="body">
+    <modalWindowConstructor
+      :title-name="'Добавить ученика'"
+      :addDelBtn="false"
+      :click="showModal"
+      @click="showModal = !showModal"
+    >
+      <template #title-text/>
+      <template #main-info/>
+      <template #education-info/>
+      <template #other/>
+      <template #financial-info></template>
+      <template #btns/>
+    </modalWindowConstructor>
+  </teleport>
   <page-wrapper>
     <template #header-title
       ><p class="dark:text-[#FAFAFA] mobile:text-2xl tablet:text-[27px]">
@@ -101,6 +122,7 @@ onMounted(() => applicationStore.getApplications());
           </label>
         </div>
         <main-button
+          @click="showModal = !showModal"
           class="dark:border-[#262C36] dark:bg-[#191D23] dark:text-[#E4E4E4] tablet:h-[40px] tablet:leading-5"
           text-content="Добавить заявку"
           rightIcon="plusIcon"

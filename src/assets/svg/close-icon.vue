@@ -1,6 +1,6 @@
 <template>
   <path
-    d="M16 16L8 8M16 8L8 16"
+    d="M21.3331 21.3331L10.6665 10.6665M21.3332 10.6665L10.6665 21.3332"
    
     stroke-linecap="round"
     stroke-linejoin="round"

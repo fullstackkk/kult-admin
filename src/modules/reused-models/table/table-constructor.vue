@@ -2,6 +2,7 @@
 import { IHeaders } from "@/models/table/Headers";
 import { IconConstructor } from "@/components";
 import { editIcon } from "@/assets/svg";
+import  { Checkboxs }  from "@/modules/reused-models";
 
 
 interface IProps {
@@ -53,7 +54,7 @@ const props = withDefaults(defineProps<IProps>(), {
     <div
       v-for="(item, index) in dataLength"
       :key="index"
-      class="flex min-h-[54px] w-full min-w-[1110px] items-center"
+      class="flex min-h-[44px] w-full min-w-[1110px] items-center hover:bg-[#E2DEFF] dark:hover:bg-[#504C6A]"
       :class="
         index % 2 == 0
           ? 'bg-white dark:bg-[#191D23]'
@@ -61,12 +62,7 @@ const props = withDefaults(defineProps<IProps>(), {
       ">
       <div>
         <slot name="check" v-bind="{ index }">
-          <label class="relative flex min-w-[40px] items-center justify-center">
-            <input class="real_checkbox z-[-1] w-[0px]" type="checkbox" />
-            <span
-              class="custom_checkbox border border-[#303030] dark:border-[#E4E4E4] before:dark:invert"
-            />
-          </label>
+          <Checkboxs/>
         </slot>
       </div>
       <div class="flex w-full justify-between">
@@ -110,36 +106,6 @@ const props = withDefaults(defineProps<IProps>(), {
 .table_::-webkit-scrollbar-thumb{
   @apply bg-[#D5D1FF] dark:bg-[#576776] rounded-bl-[170px] rounded-tr-[170px] tablet:rounded-tr-[0px] tablet:rounded-br-[150px]
 }
-.custom_checkbox{
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  background: rgba(0, 0, 0, 0);
-  border-radius: 3px;
-  vertical-align: sub;
-  position: relative;
-  cursor: pointer;
-}
-.custom_checkbox::before{
-  content: "";
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  background-image: url("../../../assets/svg/check-mark.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  margin-top: 1px;
-  transition: 0.1s ease-in;
-  cursor: pointer;
-}
-.real_checkbox:checked + .custom_checkbox::before{
-  transform: translate(-50%, -50%) scale(1);
-}
-
 </style>
 <style scoped module>
 .header_title {

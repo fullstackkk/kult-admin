@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import avatar from "@/assets/images/avatar.png";
-import calendar from "@/assets/svg/calendar-icon.vue";
-import notebook from "@/assets/svg/notebook-icon.vue";
-import users from "@/assets/svg/users-icon.vue";
-import usericon from "@/assets/svg/user-icon.vue";
-import logouticon from "@/assets/svg/log-out-icon.vue";
+import { logOutIcon, userIcon,usersIcon,notebookIcon,calendarIcon, closeIcon } from "@/assets/svg"
 import { useRouter } from "vue-router";
 
 import iconConstructor from "@/components/icon-constructor.vue";
@@ -29,22 +25,22 @@ const user = {
 };
 const links: ILinks[] = [
   {
-    icon: calendar,
+    icon: calendarIcon,
     path: "/instructor-schedule",
     name: "График работы",
   },
   {
-    icon: notebook,
+    icon: notebookIcon,
     path: "/applications-for-training",
     name: "Заявки на обучение",
   },
   {
-    icon: users,
+    icon: usersIcon,
     path: "/student-table",
     name: "Таблица учеников",
   },
   {
-    icon: usericon,
+    icon: userIcon,
     path: "/list-of-instructors",
     name: "Список инструкторов",
   },
@@ -64,7 +60,7 @@ function logout() {
 </script>
 <template>
   <div
-    class="z-10 flex h-full flex-col items-center border-[8px] border-solid border-[#E2DEFF] bg-[#fff] px-5 pt-[40px] dark:border-[#1C232C] dark:bg-[#191D23] mobile:w-full mobile:rounded-none tablet:w-[290px] tablet:rounded-[50px]"
+    class="z-[1] flex h-full flex-col items-center border-[8px] border-solid border-[#E2DEFF] bg-[#fff] px-5 pt-[40px] dark:border-[#1C232C] dark:bg-[#191D23] mobile:w-full mobile:rounded-none tablet:w-[290px] tablet:rounded-[50px]"
   >
     <img class="size-[100px]" :src="avatar" alt="пользователь" />
     <p class="mt-[20px] text-center dark:text-[#E4E4E4]">
@@ -86,18 +82,19 @@ function logout() {
       </router-link>
     </div>
     <div class="mt-[60px] flex items-center justify-center gap-[10px]">
-      <p class="cursor-pointer dark:text-[#E4E4E4]" @click.stop="logout">Выйти</p>
+      <p class="cursor-pointer dark:text-[#E4E4E4]" @click.stop="logout">
+        Выйти
+      </p>
       <icon-constructor>
-        <logouticon class="dark:stroke-[#E4E4E4]" />
+        <logOutIcon class="dark:stroke-[#E4E4E4]" />
       </icon-constructor>
     </div>
-    <span
+    <iconConstructor
       @click="emit('click')"
-      class="absolute right-[5px] top-[15px] z-20 hidden flex-col gap-[4px] mobile:flex tablet:hidden"
+      class="absolute right-[5px] top-[5px] flex tablet:hidden"
     >
-      <span class="h-[2px] w-[24px] rotate-[-45deg] bg-[#000] dark:bg-[#fff]" />
-      <span class="mt-[-6px] h-[2px] w-[24px] rotate-[45deg] bg-[#000] dark:bg-[#fff]"/>
-    </span>
+      <closeIcon class="dark:text-[#E4E4E4]" />
+    </iconConstructor>
   </div>
 </template>
 
