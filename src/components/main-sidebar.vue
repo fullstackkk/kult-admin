@@ -16,6 +16,9 @@ interface ILinks {
   path: string;
   name: string;
 }
+
+const emit = defineEmits(["click"]);
+
 const router = useRouter();
 const isAuthenticated = computed(() => userStore.$state.isAuth);
 const userStore = useUserStore();
@@ -61,9 +64,9 @@ function logout() {
 </script>
 <template>
   <div
-    class="flex h-full w-[290px] flex-col items-center rounded-[50px] border-[8px] border-solid border-[#E2DEFF] px-5 pt-[40px] dark:bg-[#191D23] dark:border-[#1C232C]"
+    class="z-10 flex h-full flex-col items-center border-[8px] border-solid border-[#E2DEFF] bg-[#fff] px-5 pt-[40px] dark:border-[#1C232C] dark:bg-[#191D23] mobile:w-full mobile:rounded-none tablet:w-[290px] tablet:rounded-[50px]"
   >
-    <img class="h-[100px] w-[100px]" :src="avatar" alt="пользователь" />
+    <img class="size-[100px]" :src="avatar" alt="пользователь" />
     <p class="mt-[20px] text-center dark:text-[#E4E4E4]">
       {{ user.name }} <br />
       {{ user.surname }}
@@ -88,6 +91,13 @@ function logout() {
         <logouticon class="dark:stroke-[#E4E4E4]" />
       </icon-constructor>
     </div>
+    <span
+      @click="emit('click')"
+      class="absolute right-[5px] top-[15px] z-20 hidden flex-col gap-[4px] mobile:flex tablet:hidden"
+    >
+      <span class="h-[2px] w-[24px] rotate-[-45deg] bg-[#000] dark:bg-[#fff]" />
+      <span class="mt-[-6px] h-[2px] w-[24px] rotate-[45deg] bg-[#000] dark:bg-[#fff]"/>
+    </span>
   </div>
 </template>
 

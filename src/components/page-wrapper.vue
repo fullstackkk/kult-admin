@@ -4,10 +4,10 @@ import { MainHeader, MainSidebar } from "@/components";
 <template>
   <div class="flex h-screen flex-col dark:bg-[#0D0F11]">
     <MainHeader />
-    <div class="flex gap-[20px]">
-      <MainSidebar />
+    <div class="flex gap-[20px] dark:bg-[#0D0F11]">
+      <MainSidebar class="mobile:hidden tablet:flex"/>
       <div
-        class="flex h-full flex-1 flex-col justify-start gap-[40px] rounded-[50px] border-[8px] border-solid border-[#E2DEFF] p-[40px] dark:bg-[#181E25] dark:border-[#1C232C]"
+        class="flex h-full flex-1 flex-col justify-start gap-[40px] border-[8px] border-solid border-[#E2DEFF] dark:border-[#1C232C] dark:bg-[#181E25] mobile:w-[290px] mobile:rounded-[0] mobile:p-[15px] tablet:rounded-[50px] tablet:p-[40px]"
       >
         <p class="text-[32px] font-semibold text-[#303030]">
           <slot name="header-title"></slot>

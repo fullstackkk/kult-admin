@@ -13,8 +13,11 @@ module.exports = {
 
       tablet: "768px",
       // => @media (min-width: 768px) { ... }
-
+      tabletXl: "1000px",
+      // => @media (min-width: 1000px) { ... }
       desktop: "1440px",
+      // => @media (min-width: 1440px) { ... }
+      desktopXl: "1600px",
       // => @media (min-width: 1440px) { ... }
     },
     // надо бы настроить переменные тайлвинда что б потом темы замутить

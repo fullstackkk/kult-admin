@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<IProps>(), {
     :height="height"
     :viewBox="`0 0 ${props.width} ${props.height}`"
     :aria-labelledby="iconName"
-    fill="none"
+    fill="rgba(0,0,0,0)"
     :stroke="props.iconColor"
   >
     <slot />

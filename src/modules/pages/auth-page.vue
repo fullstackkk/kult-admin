@@ -49,8 +49,8 @@ onMounted(() => {
         <h4 class="text-[18px] font-normal text-textprimary dark:text-[#E4E4E4]">Культура Вождения</h4>
       </div>
       <div class="mt-[26px] flex flex-col gap-[15px]">
-        <main-input placeholder="Введите логин" @input="({ value }) => setLog(value)" @submit="login" />
-        <main-input placeholder="Введите пароль" @input="({ value }) => setPass(value)" @submit="login" />
+        <main-input class="dark:text-[#E4E4E4]" placeholder="Введите логин" @input="({ value }) => setLog(value)" @submit="login" />
+        <main-input class="dark:text-[#E4E4E4]" placeholder="Введите пароль" @input="({ value }) => setPass(value)" @submit="login" />
         <main-button class="border border-greyprimary bg-purpl" text-content="Войти" @click="login"></main-button>
         <!-- <button class="text-grey">Забыли пароль ?</button> -->
       </div>
