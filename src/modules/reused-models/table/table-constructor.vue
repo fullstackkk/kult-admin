@@ -3,7 +3,6 @@ import { IHeaders } from "@/models/table/Headers";
 import { IconConstructor } from "@/components";
 import { editIcon } from "@/assets/svg";
 
-
 interface IProps {
   dataLength?: number;
   headers: IHeaders[];
@@ -15,7 +14,7 @@ interface IProps {
   disabledSlots?: string[];
 }
 const props = withDefaults(defineProps<IProps>(), {
-  dataLength: 10,
+  dataLength: 50,
   resize: true,
   id: "catalog__table",
   tableRowMarker: "table--row",
@@ -38,13 +37,14 @@ const props = withDefaults(defineProps<IProps>(), {
       >
         <div
           :id="`generate_${index}`"
-          class="relative min-w-[8px] py-[10px] pl-[10px] font-'Manrope' text-xs font-normal leading-3 text-[#303030] dark:text-[#757575]"
+          class="font-'Manrope' relative min-w-[8px] py-[10px] pl-[10px] text-xs font-normal leading-3 text-[#303030] dark:text-[#757575]"
           :class="[
             classes,
             {
               'resize-x': index < headers.length - 1 && props.resize,
             },
-          ]">
+          ]"
+        >
           {{ title }}
         </div>
       </div>
@@ -58,7 +58,8 @@ const props = withDefaults(defineProps<IProps>(), {
         index % 2 == 0
           ? 'bg-white dark:bg-[#191D23]'
           : 'bg-[#F1F3F4] dark:bg-[#262C36]'
-      ">
+      "
+    >
       <div>
         <slot name="check" v-bind="{ index }">
           <label class="relative flex min-w-[40px] items-center justify-center">
@@ -98,19 +99,19 @@ const props = withDefaults(defineProps<IProps>(), {
   </div>
 </template>
 <style scoped>
-.table_{
-  @apply overflow-auto tablet:h-full border border-[#A5A5A5] tablet:rounded-[20px] dark:bg-[#262C36] mobile:rounded-[10px] mobile:h-[405px]
+.table_ {
+  @apply overflow-auto tablet:h-full border border-[#A5A5A5] tablet:rounded-[20px] dark:bg-[#262C36] mobile:rounded-[10px] mobile:h-[405px];
 }
-.table_::-webkit-scrollbar{
-  @apply w-[10px] h-[10px] tablet:h-[20px]
+.table_::-webkit-scrollbar {
+  @apply w-[10px] h-[10px] tablet:h-[20px];
 }
-.table_::-webkit-scrollbar-track{
-  @apply bg-[#E2DEFF] dark:bg-[#262C36]  rounded-bl-[170px] rounded-tr-[170px] tablet:rounded-tr-[0px] tablet:rounded-br-[150px]
+.table_::-webkit-scrollbar-track {
+  @apply bg-[#E2DEFF] dark:bg-[#262C36]  rounded-bl-[170px] rounded-tr-[170px] tablet:rounded-tr-[0px] tablet:rounded-br-[150px];
 }
-.table_::-webkit-scrollbar-thumb{
-  @apply bg-[#D5D1FF] dark:bg-[#576776] rounded-bl-[170px] rounded-tr-[170px] tablet:rounded-tr-[0px] tablet:rounded-br-[150px]
+.table_::-webkit-scrollbar-thumb {
+  @apply bg-[#D5D1FF] dark:bg-[#576776] rounded-bl-[170px] rounded-tr-[170px] tablet:rounded-tr-[0px] tablet:rounded-br-[150px];
 }
-.custom_checkbox{
+.custom_checkbox {
   display: inline-block;
   width: 18px;
   height: 18px;
@@ -120,7 +121,7 @@ const props = withDefaults(defineProps<IProps>(), {
   position: relative;
   cursor: pointer;
 }
-.custom_checkbox::before{
+.custom_checkbox::before {
   content: "";
   display: inline-block;
   width: 13px;
@@ -136,10 +137,9 @@ const props = withDefaults(defineProps<IProps>(), {
   transition: 0.1s ease-in;
   cursor: pointer;
 }
-.real_checkbox:checked + .custom_checkbox::before{
+.real_checkbox:checked + .custom_checkbox::before {
   transform: translate(-50%, -50%) scale(1);
 }
-
 </style>
 <style scoped module>
 .header_title {

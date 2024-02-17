@@ -104,6 +104,7 @@ onMounted(() => applicationStore.getApplications());
           class="dark:border-[#262C36] dark:bg-[#191D23] dark:text-[#E4E4E4] tablet:h-[40px] tablet:leading-5"
           text-content="Добавить заявку"
           rightIcon="plusIcon"
+          @click="createApplication"
         ></main-button>
       </div>
     </template>
@@ -112,31 +113,37 @@ onMounted(() => applicationStore.getApplications());
         <template #operation="{ index }">
           <!-- <p class="text">{{ applications[index] ? applications[index].fio : "" }}</p> -->
           <standard-cell :double="true">
-            <p
-              class="font-'Manrope' font-normal mobile:text-xs tablet:text-sm"
-            >
+            <p class="font-normal mobile:text-xs tablet:text-sm">
               {{ "17.09.23 16:02" }}
             </p>
-            <p class="text font-'Manrope' ">
+            <p class="text">
               {{ "Заявка №80" }}
             </p>
           </standard-cell>
         </template>
-        <template #fio><p class="text font-'Manrope'">Ивановский И.И.</p></template>
-        <template #phone-number><p class="text font-'Manrope'">+7 (999) 999-99-99</p></template>
-        <template #branch><p class="text font-'Manrope'">Международная</p></template>
-        <template #well><p class="text font-'Manrope'">Название_курса</p></template>
+        <template #fio
+          ><p class="text font-'Manrope'">Ивановский И.И.</p></template
+        >
+        <template #phone-number
+          ><p class="text font-'Manrope'">+7 (999) 999-99-99</p></template
+        >
+        <template #branch
+          ><p class="text font-'Manrope'">Международная</p></template
+        >
+        <template #well
+          ><p class="text font-'Manrope'">Название_курса</p></template
+        >
         <template #status><p class="text font-'Manrope'">Записан</p></template>
-        <template #issue-date><p class="text font-'Manrope'">17.09.23</p></template>
+        <template #issue-date
+          ><p class="text font-'Manrope'">17.09.23</p></template
+        >
         <template #income><p class="text font-'Manrope'">9 900,00</p></template>
       </table-constructor>
     </template>
   </page-wrapper>
 </template>
 <style scoped>
-
-
-.text{
-  @apply truncate w-[142.67px] h-[24px] tablet:w-[121px] tablet:text-[17px] tablet:font-normal leading-[20px] mobile:text-sm  mobile:font-normal desktopXl:w-[140px]
+.text {
+  @apply truncate w-[142.67px] h-[24px] tablet:w-[121px] tablet:text-[17px] tablet:font-normal leading-[20px] mobile:text-sm  mobile:font-normal desktopXl:w-[140px];
 }
 </style>

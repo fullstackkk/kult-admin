@@ -64,7 +64,7 @@ function logout() {
 </script>
 <template>
   <div
-    class="z-10 flex h-full flex-col items-center border-[8px] border-solid border-[#E2DEFF] bg-[#fff] px-5 pt-[40px] dark:border-[#1C232C] dark:bg-[#191D23] mobile:w-full mobile:rounded-none tablet:w-[290px] tablet:rounded-[50px]"
+    class="z-10 flex h-fit flex-col items-center border-[8px] border-solid border-[#E2DEFF] bg-[#fff] px-5 pt-[40px] dark:border-[#1C232C] dark:bg-[#191D23] mobile:w-full mobile:rounded-none tablet:w-[290px] tablet:rounded-[50px]"
   >
     <img class="size-[100px]" :src="avatar" alt="пользователь" />
     <p class="mt-[20px] text-center dark:text-[#E4E4E4]">
@@ -86,7 +86,9 @@ function logout() {
       </router-link>
     </div>
     <div class="mt-[60px] flex items-center justify-center gap-[10px]">
-      <p class="cursor-pointer dark:text-[#E4E4E4]" @click.stop="logout">Выйти</p>
+      <p class="cursor-pointer dark:text-[#E4E4E4]" @click.stop="logout">
+        Выйти
+      </p>
       <icon-constructor>
         <logouticon class="dark:stroke-[#E4E4E4]" />
       </icon-constructor>
@@ -96,7 +98,9 @@ function logout() {
       class="absolute right-[5px] top-[15px] z-20 hidden flex-col gap-[4px] mobile:flex tablet:hidden"
     >
       <span class="h-[2px] w-[24px] rotate-[-45deg] bg-[#000] dark:bg-[#fff]" />
-      <span class="mt-[-6px] h-[2px] w-[24px] rotate-[45deg] bg-[#000] dark:bg-[#fff]"/>
+      <span
+        class="mt-[-6px] h-[2px] w-[24px] rotate-[45deg] bg-[#000] dark:bg-[#fff]"
+      />
     </span>
   </div>
 </template>

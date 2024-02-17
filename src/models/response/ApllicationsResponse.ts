@@ -9,7 +9,7 @@ export interface IApplication {
   phone: number;
   creationDate?: number;
   regDate?: number;
-  filial: "Междагорье" | "Озерки";
+  filial: "Межда" | "Озерки";
   chosenCourse: "Мото A" | "A+B" | "Профи" | "Оптима" | "Экспресс" | "Эконом";
   cpp: "МКПП" | "АКПП";
   typeOfTraining: "Онлайн" | "Очно";

@@ -37,7 +37,7 @@ export const useApplicationStore = defineStore("application", {
           patronomic: "Евгеньевич",
         },
         phone: 89103232323,
-        filial: "Междагорье",
+        filial: "Межда",
         chosenCourse: "A+B",
         cpp: "АКПП",
         typeOfTraining: "Онлайн",
