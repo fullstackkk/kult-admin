@@ -10,11 +10,10 @@ module.exports = {
     screens: {
       mobile: "320px",
       // => @media (min-width: 320px) { ... }
-
       tablet: "768px",
       // => @media (min-width: 768px) { ... }
-      tabletXl: "1000px",
-      // => @media (min-width: 1000px) { ... }
+      tabletXl: "1140px",
+      // => @media (min-width: 1140px) { ... }
       desktop: "1440px",
       // => @media (min-width: 1440px) { ... }
       desktopXl: "1600px",

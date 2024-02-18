@@ -1,3 +1,7 @@
+/**
+ * Этот файл подлежит удалению , нужен только для шаблона Паньи
+ */
+
 import { defineStore } from "pinia";
 
 export const useCounterStore = defineStore("main", {

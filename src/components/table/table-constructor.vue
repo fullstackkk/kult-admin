@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { IHeaders } from "@/models/table/Headers";
+import { ITableHeaders } from "./utils/TableHeaders";
 import { IconConstructor } from "@/components";
 import { editIcon } from "@/assets/svg";
-import { Checkboxs } from "@/modules/reused-models";
+import { Checkbox } from "@/components/ui";
 
 interface IProps {
   dataLength?: number;
-  headers: IHeaders[];
+  headers: ITableHeaders[];
   resize?: boolean;
   id?: string;
   tableRowMarker?: string;
@@ -63,7 +63,7 @@ const props = withDefaults(defineProps<IProps>(), {
     >
       <div>
         <slot name="check" v-bind="{ index }">
-          <Checkboxs />
+          <Checkbox />
         </slot>
       </div>
       <div class="flex w-full justify-between">
@@ -123,3 +123,4 @@ const props = withDefaults(defineProps<IProps>(), {
   background-color: #000;
 }
 </style>
+@/modules/popups @/components/table/utils/Headers

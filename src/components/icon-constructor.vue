@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import "@/assets/css/icon.scss";
-
 interface IProps {
   iconName: string;
   width: number | string;
@@ -28,3 +26,14 @@ const props = withDefaults(defineProps<IProps>(), {
     <slot />
   </svg>
 </template>
+<style>
+.svg-icon {
+  font-size: 1.2em;
+  display: inline-block;
+  vertical-align: top;
+  fill: red;
+  transform: translateX(0);
+  backface-visibility: hidden;
+  position: relative;
+}
+</style>

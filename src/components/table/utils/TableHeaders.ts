@@ -1,4 +1,4 @@
-export interface IHeaders {
+export interface ITableHeaders {
   title: string;
   slot_name: string;
   classes?: string;
