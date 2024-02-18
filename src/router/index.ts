@@ -6,6 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "auth",
+
     meta: { layout: "auth" },
     component: () => import("../modules/pages/auth-page.vue"),
   },
@@ -27,7 +28,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/applications-for-training",
     name: "applications-for-training",
     meta: { layout: "main", auth: true },
-    component: () => import("../modules/pages/applications-for-training-page.vue"),
+    component: () =>
+      import("../modules/pages/applications-for-training-page.vue"),
   },
   {
     path: "/student-table",

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import avatar from "@/assets/images/avatar.png";
-import { logOutIcon, userIcon,usersIcon,notebookIcon,calendarIcon, closeIcon } from "@/assets/svg"
+import {
+  logOutIcon,
+  userIcon,
+  usersIcon,
+  notebookIcon,
+  calendarIcon,
+  closeIcon,
+} from "@/assets/svg";
 import { useRouter } from "vue-router";
 
 import iconConstructor from "@/components/icon-constructor.vue";

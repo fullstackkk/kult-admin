@@ -9,8 +9,8 @@ export default class ApplicationsService {
   // не готово TODO
   static async applicationGet(
     applicationsId: string
-  ): Promise<AxiosResponse<any>> {
-    return $api.get<any>(`/application/${applicationsId}`);
+  ): Promise<AxiosResponse<IApplication>> {
+    return $api.get<IApplication>(`/application/${applicationsId}`);
     // .then(res=>res.data ) проверочный комент
   }
   // ready
@@ -29,6 +29,6 @@ export default class ApplicationsService {
   static async applicationCreate(
     application: IApplication
   ): Promise<AxiosResponse<any>> {
-    return $api.put<any>(`application/create`, application);
+    return $api.put<any>(`application/add`, application);
   }
 }

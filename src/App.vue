@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
-
-const title = computed(() => "Админка");
+import { useAppStateStore } from "@/store/modules/app-state";
+const appStateStore = useAppStateStore();
+const pageTitle = computed(() => appStateStore.pageTitle);
 </script>
 <template>
   <teleport to="head">
-    <title>{{ title }}</title>
+    <title>{{ pageTitle }}</title>
   </teleport>
   <router-view />
 </template>

@@ -4,23 +4,27 @@ import { searchIcon } from "@/assets/svg";
 import { IconConstructor } from "@/components";
 import { MainButton } from "@/components/ui";
 import { useApplicationStore } from "@/store/modules/application";
-import {
-  TableConstructor,
-  StandardCell,
-  modalWindowConstructor,
-} from "../reused-models";
+import { useAppStateStore } from "@/store/modules/app-state";
+import { TableConstructor, StandardCell } from "@/components/table";
+import CreateApplicationPopup from "@/modules/popups/create-application-popup.vue";
 
-import { IHeaders } from "@/models/table/Headers";
-import { computed, onMounted, ref } from "vue";
+import { ITableHeaders } from "@/components/table/utils/TableHeaders";
+import { computed, onMounted, reactive, ref } from "vue";
 import { IApplication } from "@/models/response/ApllicationsResponse";
 
 const applicationStore = useApplicationStore();
-
+const appStateStore = useAppStateStore();
 const applications = computed<IApplication[]>(
   () => applicationStore.applications
 );
-
-const headers: IHeaders[] = [
+interface IState {
+  isOpenCreateApplicationPopup: boolean;
+}
+const state = reactive<IState>({
+  isOpenCreateApplicationPopup: false,
+});
+const pageTitle = "Заявки на обучение";
+const headers: ITableHeaders[] = [
   {
     title: "Операция",
     slot_name: "operation",
@@ -63,35 +67,26 @@ const headers: IHeaders[] = [
   },
 ];
 
-function createApplication() {
-  // моковая функция что бы создать заявку
-  applicationStore.createApplication();
+function toggleCreateApplicationPopup(showPopup: boolean) {
+  state.isOpenCreateApplicationPopup = showPopup;
 }
 
-let showModal = ref(false)
-
-onMounted(() => applicationStore.getApplications());
+onMounted(() => {
+  applicationStore.getApplications();
+  appStateStore.setPageTitle(pageTitle);
+});
 </script>
 <template>
   <teleport to="body">
-    <modalWindowConstructor
-      :title-name="'Добавить ученика'"
-      :addDelBtn="false"
-      :click="showModal"
-      @click="showModal = !showModal"
-    >
-      <template #title-text/>
-      <template #main-info/>
-      <template #education-info/>
-      <template #other/>
-      <template #financial-info></template>
-      <template #btns/>
-    </modalWindowConstructor>
+    <create-application-popup
+      @close-popup="toggleCreateApplicationPopup(false)"
+      v-if="state.isOpenCreateApplicationPopup"
+    />
   </teleport>
   <page-wrapper>
     <template #header-title
       ><p class="dark:text-[#FAFAFA] mobile:text-2xl tablet:text-[27px]">
-        Заявки на обучение
+        {{ pageTitle }}
       </p>
     </template>
     <template #filters-place>
@@ -122,7 +117,7 @@ onMounted(() => applicationStore.getApplications());
           </label>
         </div>
         <main-button
-          @click="showModal = !showModal"
+          @click="toggleCreateApplicationPopup(true)"
           class="dark:border-[#262C36] dark:bg-[#191D23] dark:text-[#E4E4E4] tablet:h-[40px] tablet:leading-5"
           text-content="Добавить заявку"
           rightIcon="plusIcon"
@@ -133,32 +128,32 @@ onMounted(() => applicationStore.getApplications());
       <table-constructor :headers="headers" :resize="false">
         <template #operation="{ index }">
           <!-- <p class="text">{{ applications[index] ? applications[index].fio : "" }}</p> -->
-          <standard-cell :double="true">
-            <p
-              class="font-'Manrope' font-normal mobile:text-xs tablet:text-sm"
-            >
+          <standard-cell>
+            <p class="font-normal mobile:text-xs tablet:text-sm">
               {{ "17.09.23 16:02" }}
             </p>
-            <p class="text font-'Manrope' ">
+            <p class="text">
               {{ "Заявка №80" }}
             </p>
           </standard-cell>
         </template>
-        <template #fio><p class="text font-'Manrope'">Ивановский И.И.</p></template>
-        <template #phone-number><p class="text font-'Manrope'">+7 (999) 999-99-99</p></template>
-        <template #branch><p class="text font-'Manrope'">Международная</p></template>
-        <template #well><p class="text font-'Manrope'">Название_курса</p></template>
-        <template #status><p class="text font-'Manrope'">Записан</p></template>
-        <template #issue-date><p class="text font-'Manrope'">17.09.23</p></template>
-        <template #income><p class="text font-'Manrope'">9 900,00</p></template>
+        <template #fio><p class="text">Ивановский И.И.</p></template>
+        <template #phone-number
+          ><p class="text">+7 (999) 999-99-99</p></template
+        >
+        <template #branch
+          ><standard-cell>Международная</standard-cell></template
+        >
+        <template #well><standard-cell>Название_курса</standard-cell></template>
+        <template #status><standard-cell>Записан</standard-cell></template>
+        <template #issue-date><standard-cell>17.09.23</standard-cell></template>
+        <template #income><standard-cell>9 900,00</standard-cell></template>
       </table-constructor>
     </template>
   </page-wrapper>
 </template>
 <style scoped>
-
-
-.text{
-  @apply truncate w-[142.67px] h-[24px] tablet:w-[121px] tablet:text-[17px] tablet:font-normal leading-[20px] mobile:text-sm  mobile:font-normal desktopXl:w-[140px]
+.text {
+  @apply truncate w-[142.67px] h-[24px] tablet:w-[121px] tablet:text-[17px] tablet:font-normal leading-[20px] mobile:text-sm  mobile:font-normal desktopXl:w-[140px];
 }
 </style>
