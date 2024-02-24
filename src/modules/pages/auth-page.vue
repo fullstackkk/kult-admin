@@ -35,8 +35,6 @@ watch(isAuthenticated, () => {
   }
 });
 onMounted(() => {
-  userStore.setIsAuth(true);
-  // удалить прост надо
   if (localStorage.getItem("token")) {
     console.log("отрабатывает кейс с сохраненным токеном");
     userStore.setIsAuth(true);
