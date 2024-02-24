@@ -2,7 +2,7 @@
 import { ITableHeaders } from "./utils/TableHeaders";
 import { IconConstructor } from "@/components";
 import { editIcon } from "@/assets/svg";
-import { Checkbox } from "@/components/ui";
+import { CustomCheckbox } from "@/components/ui";
 
 interface IProps {
   dataLength?: number;
@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<IProps>(), {
       >
         <div
           :id="`generate_${index}`"
-          class="font-'Manrope' relative min-w-[8px] py-[10px] pl-[10px] text-xs font-normal leading-3 text-[#303030] dark:text-[#757575]"
+          class=" relative min-w-[8px] py-[10px] pl-[10px] text-xs leading-3 text-[#303030] dark:text-[#757575]"
           :class="[
             classes,
             {
@@ -63,7 +63,7 @@ const props = withDefaults(defineProps<IProps>(), {
     >
       <div>
         <slot name="check" v-bind="{ index }">
-          <Checkbox />
+          <CustomCheckbox />
         </slot>
       </div>
       <div class="flex w-full justify-between">
@@ -123,4 +123,3 @@ const props = withDefaults(defineProps<IProps>(), {
   background-color: #000;
 }
 </style>
-@/modules/popups @/components/table/utils/Headers

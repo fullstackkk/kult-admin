@@ -5,7 +5,7 @@ import { IconConstructor } from "@/components";
 import { MainButton } from "@/components/ui";
 import { useApplicationStore } from "@/store/modules/application";
 import { useAppStateStore } from "@/store/modules/app-state";
-import { TableConstructor, StandardCell } from "@/components/table";
+import { TableConstructor, StandardCell, Pagination } from "@/components/table";
 import CreateApplicationPopup from "@/modules/popups/create-application-popup.vue";
 
 import { ITableHeaders } from "@/components/table/utils/TableHeaders";
@@ -69,6 +69,9 @@ const headers: ITableHeaders[] = [
 
 function toggleCreateApplicationPopup(showPopup: boolean) {
   state.isOpenCreateApplicationPopup = showPopup;
+  state.isOpenCreateApplicationPopup
+    ? `${(document.body.style.overflow = "hidden")}`
+    : `${(document.body.style.overflow = "auto")}`;
 }
 
 onMounted(() => {
@@ -79,6 +82,7 @@ onMounted(() => {
 <template>
   <teleport to="body">
     <create-application-popup
+      :popup-title="'Добавить ученика'"
       @close-popup="toggleCreateApplicationPopup(false)"
       v-if="state.isOpenCreateApplicationPopup"
     />
@@ -127,9 +131,9 @@ onMounted(() => {
     <template #main-content>
       <table-constructor :headers="headers" :resize="false">
         <template #operation="{ index }">
-          <!-- <p class="text">{{ applications[index] ? applications[index].fio : "" }}</p> -->
-          <standard-cell>
-            <p class="font-normal mobile:text-xs tablet:text-sm">
+          <!-- <p class="text">{{ applications }}</p> -->
+          <standard-cell :classes="'h-[44px]'">
+            <p class=" mobile:text-xs tablet:text-sm">
               {{ "17.09.23 16:02" }}
             </p>
             <p class="text">
@@ -150,10 +154,13 @@ onMounted(() => {
         <template #income><standard-cell>9 900,00</standard-cell></template>
       </table-constructor>
     </template>
+    <template #pagination-palce>
+      <pagination/>
+    </template>
   </page-wrapper>
 </template>
 <style scoped>
 .text {
-  @apply truncate w-[142.67px] h-[24px] tablet:w-[121px] tablet:text-[17px] tablet:font-normal leading-[20px] mobile:text-sm  mobile:font-normal desktopXl:w-[140px];
+  @apply truncate w-[142.67px] h-[24px] tablet:w-[121px] tablet:text-[17px] leading-[20px] mobile:text-sm  desktopXl:w-[140px];
 }
 </style>
