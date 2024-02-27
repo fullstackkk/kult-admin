@@ -20,6 +20,12 @@ const applications = computed<IApplication[]>(
 interface IState {
   isOpenCreateApplicationPopup: boolean;
 }
+
+interface IFio {
+  firstname: string;
+  lastname: string;
+  patronomic: string;
+}
 const state = reactive<IState>({
   isOpenCreateApplicationPopup: false,
 });
@@ -69,9 +75,22 @@ const headers: ITableHeaders[] = [
 
 function toggleCreateApplicationPopup(showPopup: boolean) {
   state.isOpenCreateApplicationPopup = showPopup;
+  // почему это тут а не в конструкторе попапа ?
   state.isOpenCreateApplicationPopup
     ? `${(document.body.style.overflow = "hidden")}`
     : `${(document.body.style.overflow = "auto")}`;
+}
+function convertTimestampToDateTime(timestamp: number | undefined) {
+  if (!timestamp) {
+    return "";
+  }
+  var date = new Date(timestamp * 1000); // Умножаем на 1000, чтобы преобразовать секунды в миллисекунды
+  return `${date.getDate()}.${
+    date.getMonth() + 1
+  }.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+}
+function convertFioToString(fio: IFio) {
+  return `${fio.lastname} ${fio.firstname}:${fio.patronomic}`;
 }
 
 onMounted(() => {
@@ -129,33 +148,48 @@ onMounted(() => {
       </div>
     </template>
     <template #main-content>
-      <table-constructor :headers="headers" :resize="false">
+      <table-constructor
+        :headers="headers"
+        :resize="false"
+        :dataLength="applications.length"
+      >
         <template #operation="{ index }">
-          <!-- <p class="text">{{ applications }}</p> -->
           <standard-cell :classes="'h-[44px]'">
-            <p class=" mobile:text-xs tablet:text-sm">
-              {{ "17.09.23 16:02" }}
+            <p class="mobile:text-xs tablet:text-sm">
+              {{
+                convertTimestampToDateTime(applications[index]?.creationDate)
+              }}
             </p>
-            <p class="text">
-              {{ "Заявка №80" }}
-            </p>
+            <p class="text">Заявка №{{ applications[index]?.number }}</p>
           </standard-cell>
         </template>
-        <template #fio><p class="text">Ивановский И.И.</p></template>
-        <template #phone-number
-          ><p class="text">+7 (999) 999-99-99</p></template
+        <template #fio="{ index }">
+          <standard-cell>
+            {{ convertFioToString(applications[index].fio as unknown as IFio) }}
+          </standard-cell>
+        </template>
+        <template #phone-number="{ index }"
+          ><p class="text">{{ index }}</p></template
         >
-        <template #branch
+        <template #branch="{ index }"
           ><standard-cell>Международная</standard-cell></template
         >
-        <template #well><standard-cell>Название_курса</standard-cell></template>
-        <template #status><standard-cell>Записан</standard-cell></template>
-        <template #issue-date><standard-cell>17.09.23</standard-cell></template>
-        <template #income><standard-cell>9 900,00</standard-cell></template>
+        <template #well="{ index }"
+          ><standard-cell>Название_курса</standard-cell></template
+        >
+        <template #status="{ index }"
+          ><standard-cell>Записан</standard-cell></template
+        >
+        <template #issue-date="{ index }"
+          ><standard-cell>17.09.23</standard-cell></template
+        >
+        <template #income="{ index }"
+          ><standard-cell>9 900,00</standard-cell></template
+        >
       </table-constructor>
     </template>
     <template #pagination-palce>
-      <pagination/>
+      <pagination />
     </template>
   </page-wrapper>
 </template>
