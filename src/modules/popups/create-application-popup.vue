@@ -49,7 +49,7 @@ function createApplication() {
             class="size-full rounded-[10px] bg-[#E2DEFF] px-[10px] dark:bg-[#504C6A] dark:text-[#E4E4E4] tablet:w-[408px] tabletXl:w-[305px] desktop:w-[408px]"
           >
             <p
-              class="mt-[10px] text-xl font-medium mb-[20px]"
+              class="mb-[20px] mt-[10px] text-xl font-medium"
             >
               Главная информация
             </p>
