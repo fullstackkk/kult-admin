@@ -26,7 +26,7 @@
     "@vue/eslint-config-typescript": "^10.0.0",
     "@vue/test-utils": "^2.0.0-rc.17",
     "@vue/vue3-jest": "^27.0.0-alpha.4",
-    "@vueuse/core": "^10.5.0",
+    "@vueuse/core": "^10.8.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^9.0.0",
