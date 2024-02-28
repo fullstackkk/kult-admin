@@ -3,9 +3,7 @@
 @tailwind utilities;
 @import "./fonts.scss";
 
-html {
-  font-family: 'Manrope';
-}
+
 @layer utilities {
   .borderer-primary {
     @apply border-primary border-[8px] rounded-[50px] border-solid;

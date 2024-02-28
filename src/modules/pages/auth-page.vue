@@ -4,17 +4,19 @@ import authBg from "@/assets/images/auth-bg.png";
 import { MainButton, MainInput } from "@/components/ui";
 import { computed, onMounted, reactive, watch } from "vue";
 import { useUserStore } from "@/store/modules/user";
-
+import { useAppStateStore } from "@/store/modules/app-state";
 interface IState {
   logVaalue: string;
   passValue: string;
 }
 const router = useRouter();
 const userStore = useUserStore();
+const appStateStore = useAppStateStore();
 const state = reactive<IState>({
   logVaalue: "",
   passValue: "",
 });
+const currentRoute = computed(() => appStateStore.currentRoute);
 const isAuthenticated = computed(() => userStore.$state.isAuth);
 function setLog(log: string) {
   state.logVaalue = log;
@@ -31,7 +33,7 @@ function login() {
 watch(isAuthenticated, () => {
   if (isAuthenticated) {
     console.log("переадресация на страницу заявок");
-    router.push("/applications-for-training");
+    router.push(currentRoute.value);
   }
 });
 onMounted(() => {
