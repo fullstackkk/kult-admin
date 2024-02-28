@@ -4,6 +4,7 @@ interface IProps {
   width: number | string;
   height: number | string;
   iconColor: string;
+  classes?: string;
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -11,10 +12,13 @@ const props = withDefaults(defineProps<IProps>(), {
   width: 32,
   height: 32,
   iconColor: "currentColor",
+  classes:
+    "group-hover/icon:stroke-[#7B57E0]  dark:stroke-[#7B57E0] transition-all",
 });
 </script>
 <template>
   <svg
+    :class="[classes]"
     xmlns="http://www.w3.org/2000/svg"
     :width="width"
     :height="height"

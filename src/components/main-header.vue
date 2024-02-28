@@ -8,7 +8,7 @@ import { MainSidebar } from "@/components";
 
 import bellIcon from "@/assets/svg/bell-icon.vue";
 
-const click = ref(false)
+const click = ref(false);
 const userName = computed(() => "Константин Константинопольский");
 const userPosition = computed(() => "Администратор");
 
@@ -16,7 +16,7 @@ const toogleTheme = () => {
   document.documentElement.classList.toggle("dark");
 };
 </script>
-<template >
+<template>
   <MainSidebar
     @click="click = !click"
     :class="click ? 'left-[0]' : 'left-[100%]'"
@@ -25,9 +25,9 @@ const toogleTheme = () => {
   <div
     class="flex w-full items-center justify-between mobile:h-[80px] mobile:bg-[#ffffff00] tablet:mb-[32px]"
   >
-    <img :src="logo" alt="на главную" class="mobile:w-[30px] tablet:w-[50px]"/>
+    <img :src="logo" alt="на главную" class="mobile:w-[30px] tablet:w-[50px]" />
     <div class="flex gap-[20px]">
-      <button class="mobile:hidden tablet:flex">
+      <button class="group/icon mobile:hidden tablet:flex">
         <icon-constructor width="48" height="48" @click="toogleTheme()">
           <moon-icon class="dark:text-[#E4E4E4]" />
         </icon-constructor>
@@ -53,7 +53,7 @@ const toogleTheme = () => {
       >
         <span
           v-for="i in 3"
-          class="w-[18px] h-[2px] bg-[#000] dark:bg-[#fff]"
+          class="h-[2px] w-[18px] bg-[#000] dark:bg-[#fff]"
         />
       </span>
     </div>
