@@ -10,6 +10,7 @@ export default class AuthService {
     return $api.post<IAuthResponse>("/auth/login", {
       username,
       password,
+      fingerprint: navigator.userAgent,
     });
     // .then(res=>res.data ) проверочный комент
   }
