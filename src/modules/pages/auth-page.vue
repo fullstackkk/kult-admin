@@ -33,7 +33,7 @@ function login() {
 watch(isAuthenticated, () => {
   if (isAuthenticated) {
     console.log("переадресация на страницу заявок");
-    router.push(currentRoute.value);
+    router.push("/applications-for-training");
   }
 });
 onMounted(() => {
