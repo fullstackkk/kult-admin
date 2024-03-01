@@ -11,12 +11,12 @@ export function validationMainInfoFullName(text: string) {
   }
 }
 
-export function validationMainInfoPhoneNumber(text: string) {
+export function validationMainInfoPhoneNumber(text: number) {
   let correctValidate =
-    /[7-8]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/.test(text);
-  let wrongValidate = /[a-zA-ZА-Яа-яЁё]/.test(text);
+    /[7-8]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/.test(String(text));
+  let wrongValidate = /[a-zA-ZА-Яа-яЁё]/.test(String(text));
   if (correctValidate) {
-    return "";
+    return ;
   } else if (wrongValidate) {
     return "запрешенные символы";
   } else {
@@ -24,9 +24,9 @@ export function validationMainInfoPhoneNumber(text: string) {
   }
 }
 
-export function validationFinancialInfoIncome(text: string) {
-  let correctValidate = /[0-9]/.test(text);
-  let wrongValidate = /[a-zA-ZА-Яа-яЁё]/.test(text);
+export function validationFinancialInfoIncome(text: number | undefined) {
+  let correctValidate = /[0-9]/.test(String(text));
+  let wrongValidate = /[a-zA-ZА-Яа-яЁё]/.test(String(text));
   if (correctValidate) {
     return "";
   } else if (wrongValidate) {

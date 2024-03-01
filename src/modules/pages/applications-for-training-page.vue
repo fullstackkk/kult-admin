@@ -9,7 +9,7 @@ import { TableConstructor, StandardCell, Pagination } from "@/components/table";
 import CreateApplicationPopup from "@/modules/popups/create-application-popup.vue";
 
 import { ITableHeaders } from "@/components/table/utils/TableHeaders";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import { IApplication } from "@/models/response/ApllicationsResponse";
 
 const applicationStore = useApplicationStore();
@@ -73,12 +73,9 @@ const headers: ITableHeaders[] = [
   },
 ];
 
-function toggleCreateApplicationPopup(showPopup: boolean) {
-  state.isOpenCreateApplicationPopup = showPopup;
-  // почему это тут а не в конструкторе попапа ?
-  state.isOpenCreateApplicationPopup
-    ? `${(document.body.style.overflow = "hidden")}`
-    : `${(document.body.style.overflow = "auto")}`;
+
+function toogleState(showPopup: boolean){
+  state.isOpenCreateApplicationPopup = showPopup
 }
 function convertTimestampToDateTime(timestamp: number | undefined) {
   if (!timestamp) {
@@ -102,7 +99,7 @@ onMounted(() => {
   <teleport to="body">
     <create-application-popup
       :popup-title="'Добавить ученика'"
-      @close-popup="toggleCreateApplicationPopup(false)"
+      @show-popup="toogleState"
       v-if="state.isOpenCreateApplicationPopup"
     />
   </teleport>
@@ -140,7 +137,7 @@ onMounted(() => {
           </label>
         </div>
         <main-button
-          @click="toggleCreateApplicationPopup(true)"
+          @click="toogleState(true)"
           class="dark:border-[#262C36] dark:bg-[#191D23] dark:text-[#E4E4E4] tablet:h-[40px] tablet:leading-5"
           text-content="Добавить заявку"
           rightIcon="plusIcon"
