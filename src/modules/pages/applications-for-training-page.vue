@@ -7,6 +7,7 @@ import { useApplicationStore } from "@/store/modules/application";
 import { useAppStateStore } from "@/store/modules/app-state";
 import { TableConstructor, StandardCell, Pagination } from "@/components/table";
 import CreateApplicationPopup from "@/modules/popups/create-application-popup.vue";
+import { convertFioToString } from "./utils/convert-fio-to-string";
 
 import { ITableHeaders } from "@/components/table/utils/TableHeaders";
 import { computed, onMounted, reactive } from "vue";
@@ -86,10 +87,6 @@ function convertTimestampToDateTime(timestamp: number | undefined) {
     date.getMonth() + 1
   }.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 }
-function convertFioToString(fio: IFio) {
-  return `${fio.lastname} ${fio.firstname}:${fio.patronomic}`;
-}
-
 onMounted(() => {
   applicationStore.getApplications();
   appStateStore.setPageTitle(pageTitle);

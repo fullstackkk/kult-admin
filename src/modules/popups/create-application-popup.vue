@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { PopupConstructor } from "@/components/popup";
 import { useApplicationStore } from "@/store/modules/application";
-import { validationMainInfoFullName,validationMainInfoPhoneNumber,validationFinancialInfoIncome } from "@/components/popup/popup-input-validation";
+import { validationMainInfoFullName,validationMainInfoPhoneNumber,validationFinancialInfoIncome,validationFinancialInfoDiscount,fullCheck } from "@/components/popup/popup-input-validation";
 import { CustomSelect } from "@/components/ui";
 import { IconConstructor } from "@/components";
 import { calendarIcon } from "@/assets/svg";
-import { reactive } from "vue";
+import { reactive, ref, watchEffect } from "vue";
 import { IApplication } from "@/models/response/ApllicationsResponse";
 
 interface IApplicationSelectOptions{
@@ -27,6 +27,8 @@ interface IEmits {
 const props = defineProps<IProps>();
 const emit = defineEmits<IEmits>();
 const applicationStore = useApplicationStore();
+
+let fullFio = ref("")
 
 const applicationSelectOptions:IApplicationSelectOptions = ({
   filial: ["Межда","Озерки"],
@@ -55,6 +57,13 @@ const applicationData = reactive<IApplication>({
   comment: "",
 });
 
+function createApplication() {
+  // моковая функция что бы создать заявку
+  if (fullCheck()){
+    applicationStore.createApplication(applicationData);
+    console.log("данные о новом ученике улетели")
+  }
+}
 
 function showPopup(showPopup: boolean) {
   emit("show-popup", showPopup)
@@ -63,11 +72,11 @@ function showPopup(showPopup: boolean) {
     : `${(document.body.style.overflow = "auto")}`;
 }
 
-function createApplication() {
-  // моковая функция что бы создать заявку
-  applicationStore.createApplication();
+function recordFio(){
+  applicationData.fio.firstname = fullFio.value.split(' ')[0]
+  applicationData.fio.lastname = fullFio.value.split(' ')[1]
+  applicationData.fio.patronomic = fullFio.value.split(' ')[2]
 }
-
 function recordFilial(selectedOption: "Межда" | "Озерки"){
   applicationData.filial = selectedOption
   console.log(applicationData)
@@ -87,12 +96,17 @@ function recordOfferStatus(selectedOption: "Новая заявка"| "В обр
 function recordPaymentType(selectedOption:"Наличка" | "Безнал"){
   applicationData.paymentType = selectedOption
 }
+
+watchEffect(()=>{
+  recordFio()
+})
 </script>
 
 <template>
   <popup-constructor
     :addPopupDeleteButton="false"
     @close-popup="showPopup(false)"
+    @save-value="createApplication()"
     :popup-title="props.popupTitle"
   >
     <div
@@ -116,7 +130,7 @@ function recordPaymentType(selectedOption:"Наличка" | "Безнал"){
                 <p class=" text-base text-[#f33939]">{{ validationMainInfoFullName(applicationData.fio.firstname) }}</p>
               </div>
                 <input
-                  v-model="applicationData.fio.firstname"
+                  v-model="fullFio"
                   placeholder="Фамилия Имя Отчество"
                   class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
                   type="text"
@@ -242,7 +256,7 @@ function recordPaymentType(selectedOption:"Наличка" | "Безнал"){
         </div>
         <div class="mt-[5px]">
           <p class=" mb-[5px]">Скидка</p>
-            <p class=" text-base text-[#f33939]">{{ validationFinancialInfoIncome(applicationData.discount) }}</p>
+            <p class=" text-base text-[#f33939]">{{ validationFinancialInfoDiscount(applicationData.discount) }}</p>
             <input
               v-model="applicationData.discount"
               class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"

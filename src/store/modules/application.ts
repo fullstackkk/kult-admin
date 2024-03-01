@@ -26,28 +26,11 @@ export const useApplicationStore = defineStore("application", {
         console.log(error);
       }
     },
-    async createApplication(application?: IApplication) {
-      // это моковый объект для теста
-      const applicationMoc: IApplication = {
-        isActive: true,
-        number: 89103232323,
-        fio: {
-          firstname: "Андрей",
-          lastname: "Филипов",
-          patronomic: "Евгеньевич",
-        },
-        phone: 89103232323,
-        filial: "Межда",
-        chosenCourse: "A+B",
-        cpp: "АКПП",
-        typeOfTraining: "Онлайн",
-        offerStatus: "Думает",
-        paymentType: "Безнал",
-      };
+    async createApplication(application: IApplication) {
       //   if (!application) return;
       try {
         const response = await ApplicationsService.applicationCreate(
-          applicationMoc
+          application
         );
         this.setApplication(response.data);
       } catch (error) {
