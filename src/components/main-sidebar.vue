@@ -33,7 +33,7 @@ const state = reactive<IState>({
   isShowFullSidebar: true,
   currentRoute: appStateStore.currentRoute,
 });
-
+const SIDEBAR_STATE_KEY = "IS_SHOW_FULL_SIDEBAR";
 const router = useRouter();
 const isAuthenticated = computed(() => userStore.$state.isAuth);
 const userStore = useUserStore();
@@ -68,14 +68,7 @@ const links: ILinks[] = [
     isCurrentRoute: false,
   },
 ];
-watch(
-  () => isAuthenticated,
-  () => {
-    if (!isAuthenticated) {
-      setCurrentRoute("/");
-    }
-  }
-);
+
 function logout() {
   userStore.logout();
   setCurrentRoute("/");
@@ -87,8 +80,11 @@ function setCurrentRoute(path: string) {
 }
 function toggleShowFullSidebar() {
   state.isShowFullSidebar = !state.isShowFullSidebar;
-  console.log(state.isShowFullSidebar);
+  localStorage.setItem(SIDEBAR_STATE_KEY, String(state.isShowFullSidebar));
 }
+onMounted(() => {
+  state.isShowFullSidebar = Boolean(localStorage.getItem(SIDEBAR_STATE_KEY));
+});
 </script>
 <template>
   <keep-alive>

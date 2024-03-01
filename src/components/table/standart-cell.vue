@@ -17,7 +17,7 @@ function onClickCell() {
 </script>
 <template>
   <p
-    class="h-[24px] w-[142.67px] truncate leading-[20px] mobile:text-sm tablet:w-[121px] tablet:text-[17px] desktopXl:w-[140px]"
+    class="flex h-[44px] w-full items-center justify-start truncate text-[16px] leading-[18px]"
     :class="props.classes"
   >
     <slot @click="onClickCell"></slot>

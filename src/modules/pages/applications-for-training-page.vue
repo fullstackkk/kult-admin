@@ -154,13 +154,17 @@ onMounted(() => {
         :dataLength="applications.length"
       >
         <template #operation="{ index }">
-          <standard-cell :classes="'h-[44px]'">
-            <p class="mobile:text-xs tablet:text-sm">
-              {{
-                convertTimestampToDateTime(applications[index]?.creationDate)
-              }}
-            </p>
-            <p class="text">Заявка №{{ applications[index]?.number }}</p>
+          <standard-cell>
+            <div class="flex-col justify-start">
+              <p class="text-[12px] leading-[14px]">
+                {{
+                  convertTimestampToDateTime(applications[index]?.creationDate)
+                }}
+              </p>
+              <p class="text-[14px] leading-[16px]">
+                Заявка №{{ applications[index]?.number }}
+              </p>
+            </div>
           </standard-cell>
         </template>
         <template #fio="{ index }">
@@ -169,7 +173,7 @@ onMounted(() => {
           </standard-cell>
         </template>
         <template #phone-number="{ index }"
-          ><p class="text">{{ index }}</p></template
+          ><standard-cell>{{ index }}</standard-cell></template
         >
         <template #branch="{ index }"
           ><standard-cell>Международная</standard-cell></template
