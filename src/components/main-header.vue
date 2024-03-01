@@ -1,34 +1,42 @@
 <script setup lang="ts">
 import logo from "@/assets/svg/logo.svg";
 import avatar from "@/assets/images/avatar.png";
-import { computed, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import iconConstructor from "@/components/icon-constructor.vue";
 import moonIcon from "@/assets/svg/moon-icon.vue";
-import { MainSidebar } from "@/components";
-
+import MobileSidebar from "@/components/mobile-sidebar.vue";
 import bellIcon from "@/assets/svg/bell-icon.vue";
-
-const click = ref(false);
+import { isMobile } from "@/utils/use-size";
+interface IState {
+  isSidebarShow: boolean;
+}
+const state = reactive<IState>({
+  isSidebarShow: false,
+});
 const userName = computed(() => "Константин Константинопольский");
 const userPosition = computed(() => "Администратор");
 
-const toogleTheme = () => {
+function toogleTheme() {
   document.documentElement.classList.toggle("dark");
-};
+}
+function toogleShowSidebar() {
+  state.isSidebarShow = !state.isSidebarShow;
+}
 </script>
 <template>
-  <MainSidebar
-    @click="click = !click"
-    :class="click ? 'left-[0]' : 'left-[100%]'"
-    class="fixed duration-[400ms] tablet:hidden"
-  />
   <div
     class="flex w-full items-center justify-between mobile:h-[80px] mobile:bg-[#ffffff00] tablet:mb-[32px]"
   >
+    <teleport to="body">
+      <mobile-sidebar
+        @close="toogleShowSidebar"
+        v-if="state.isSidebarShow && isMobile"
+      />
+    </teleport>
     <img :src="logo" alt="на главную" class="mobile:w-[30px] tablet:w-[50px]" />
     <div class="flex gap-[20px]">
       <button class="group/icon mobile:hidden tablet:flex">
-        <icon-constructor width="48" height="48" @click="toogleTheme()">
+        <icon-constructor width="48" height="48" @click="toogleTheme">
           <moon-icon class="dark:text-[#E4E4E4]" />
         </icon-constructor>
       </button>
@@ -47,15 +55,16 @@ const toogleTheme = () => {
           <bell-icon class="dark:text-[#E4E4E4]" />
         </icon-constructor>
       </button>
-      <span
-        @click="click = !click"
+      <button
+        @click="toogleShowSidebar"
         class="hidden flex-col gap-[2px] mobile:flex tablet:hidden"
       >
         <span
           v-for="i in 3"
+          :key="i"
           class="h-[2px] w-[18px] bg-[#000] dark:bg-[#fff]"
         />
-      </span>
+      </button>
     </div>
   </div>
 </template>

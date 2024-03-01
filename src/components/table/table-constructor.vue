@@ -28,9 +28,12 @@ const props = withDefaults(defineProps<IProps>(), {
   <div class="table_" :id="id">
     <!-- Шапка -->
     <div
-      class="flex w-[95.5%] justify-between pl-[32px]"
+      class="flex w-fit justify-between bg-[#FAFAFA] dark:bg-[#262C36]"
       :class="tableRowMarker"
     >
+      <slot name="check-header">
+        <CustomCheckbox />
+      </slot>
       <div
         v-for="({ title, classes }, index) in headers"
         class="relative flex items-center justify-start"
@@ -38,7 +41,7 @@ const props = withDefaults(defineProps<IProps>(), {
       >
         <div
           :id="`generate_${index}`"
-          class=" relative min-w-[8px] py-[10px] pl-[10px] text-xs leading-3 text-[#303030] dark:text-[#757575]"
+          class="relative min-w-[8px] py-[10px] pl-[10px] text-xs leading-3 text-[#303030] dark:text-[#757575]"
           :class="[
             classes,
             {
@@ -66,7 +69,7 @@ const props = withDefaults(defineProps<IProps>(), {
           <CustomCheckbox />
         </slot>
       </div>
-      <div class="flex w-full justify-between">
+      <div class="flex w-full">
         <!-- Cell -->
         <div
           class="relative"
@@ -96,7 +99,7 @@ const props = withDefaults(defineProps<IProps>(), {
 </template>
 <style scoped>
 .table_ {
-  @apply overflow-auto tablet:h-full border border-[#A5A5A5] tablet:rounded-[20px] dark:bg-[#262C36] mobile:rounded-[10px] mobile:h-[405px];
+  @apply overflow-auto   border border-[#A5A5A5] tablet:rounded-[20px] dark:bg-[#262C36] mobile:rounded-[10px]  h-full;
 }
 .table_::-webkit-scrollbar {
   @apply w-[10px] h-[10px] tablet:h-[20px];

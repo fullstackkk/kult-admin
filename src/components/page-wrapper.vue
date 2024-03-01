@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { MainHeader, MainSidebar } from "@/components";
+import { reactive } from "vue";
+interface IState {
+  isShowFullSidebar: boolean;
+}
+const state = reactive<IState>({
+  isShowFullSidebar: true,
+});
+function setIsShowFullSidebar() {
+  state.isShowFullSidebar = !state.isShowFullSidebar;
+}
 </script>
 <template>
   <div class="flex h-screen flex-1 flex-col p-[20px] dark:bg-[#0D0F11]">
