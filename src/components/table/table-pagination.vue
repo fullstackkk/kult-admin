@@ -4,12 +4,12 @@ import { arrowDownIcon } from "@/assets/svg";
 </script>
 
 <template>
-  <div class="flex justify-center gap-[5px]">
+  <div class="flex justify-center gap-[5px] dark:text-[#E4E4E4]">
     <IconConstructor :width="24" :height="24" class="rotate-90 cursor-pointer">
       <arrowDownIcon/>
     </IconConstructor>
     <p
-      class="flex size-[32px] cursor-pointer items-center justify-center rounded-[5px] bg-[#E2DEFF]"
+      class="flex size-[32px] cursor-pointer items-center justify-center rounded-[5px] bg-[#E2DEFF] text-[#7B57E0]"
     >
       1
     </p>

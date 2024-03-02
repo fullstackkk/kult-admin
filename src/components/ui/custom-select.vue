@@ -1,16 +1,29 @@
 <script setup lang="ts">
 interface IProps {
-  selectValues: Array<string>
+  selectValues: string[] | string;
+}
+interface IEmits {
+  (e: "changeValue", selectedOption: any): string;
 }
 
+
 const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
+
+
+function getChangeValue(event: any) {
+  emit("changeValue", props.selectValues[event.target.value])
+}
 </script>
 
 <template>
   <div class="select__wrapper">
-    <select name="select" class="custom__select">
+    <select
+      @change="getChangeValue($event)"
+      name="select"
+      class="custom__select"
+    >
       <option
-        selected="true"
         v-for="(item, index) in props.selectValues"
         :value="index"
         :key="index"

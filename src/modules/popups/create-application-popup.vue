@@ -1,41 +1,112 @@
 <script setup lang="ts">
 import { PopupConstructor } from "@/components/popup";
 import { useApplicationStore } from "@/store/modules/application";
-import { validationMainInfoFullName,validationMainInfoPhoneNumber,validationFinancialInfoIncome } from "@/components/popup/popup-input-validation";
+import { validationMainInfoFullName,validationMainInfoPhoneNumber,validationFinancialInfoIncome,validationFinancialInfoDiscount,fullCheck } from "@/components/popup/popup-input-validation";
 import { CustomSelect } from "@/components/ui";
 import { IconConstructor } from "@/components";
 import { calendarIcon } from "@/assets/svg";
-import { ref } from "vue";
+import { reactive, ref, watchEffect } from "vue";
+import { IApplication } from "@/models/response/ApllicationsResponse";
 
+interface IApplicationSelectOptions{
+  filial: ["Межда","Озерки"]
+  chosenCourse: ["Мото A","A+B","Профи","Оптима","Экспресс","Эконом"]
+  cpp: ["МКПП","АКПП"]
+  typeOfTraining:["Онлайн","Очно"]
+  offerStatus:["Новая заявка","В обработке","Не отвечает","Думает","Скоро придет","Записался(ась) на обучение","Завершил обучение"]
+  paymentType: ["Наличка","Безнал"] | "Наличка" | "Безнал"
+}
 interface IProps {
   popupTitle?: string;
 }
 interface IEmits {
-  (e: "close-popup"): void;
+  (e: "show-popup", value: boolean):boolean
 }
+
+
 const props = defineProps<IProps>();
 const emit = defineEmits<IEmits>();
 const applicationStore = useApplicationStore();
 
-const arr = ["asd", "fd", "f4"];
-let fullName = ref()
-let phoneNumber = ref()
-let income = ref()
-let discount = ref()
+let fullFio = ref("")
 
-function closePopup() {
-  emit("close-popup");
-}
+const applicationSelectOptions:IApplicationSelectOptions = ({
+  filial: ["Межда","Озерки"],
+  chosenCourse: ["Мото A","A+B","Профи","Оптима","Экспресс","Эконом"],
+  cpp: ["МКПП","АКПП"],
+  typeOfTraining: ["Онлайн","Очно"],
+  offerStatus: ["Новая заявка","В обработке","Не отвечает","Думает","Скоро придет","Записался(ась) на обучение","Завершил обучение"],
+  paymentType: ["Наличка","Безнал"],
+});
+const applicationData = reactive<IApplication>({
+  number: 89103232323,
+  fio: {
+    firstname: "",
+    lastname: "",
+    patronomic: "",
+  },
+  phone: 89999999999,
+  filial: "Межда",
+  chosenCourse: "Мото A",
+  cpp: "МКПП",
+  typeOfTraining: "Онлайн",
+  offerStatus: "Новая заявка",
+  paymentType: "Наличка",
+  income: 0,
+  discount: 0,
+  comment: "",
+});
+
 function createApplication() {
   // моковая функция что бы создать заявку
-  applicationStore.createApplication();
+  if (fullCheck()){
+    applicationStore.createApplication(applicationData);
+    console.log("данные о новом ученике улетели")
+  }
 }
+
+function showPopup(showPopup: boolean) {
+  emit("show-popup", showPopup)
+  showPopup
+    ? `${(document.body.style.overflow = "hidden")}`
+    : `${(document.body.style.overflow = "auto")}`;
+}
+
+function recordFio(){
+  applicationData.fio.firstname = fullFio.value.split(' ')[0]
+  applicationData.fio.lastname = fullFio.value.split(' ')[1]
+  applicationData.fio.patronomic = fullFio.value.split(' ')[2]
+}
+function recordFilial(selectedOption: "Межда" | "Озерки"){
+  applicationData.filial = selectedOption
+  console.log(applicationData)
+}
+function recordChosenCourse(selectedOption: "Мото A" | "A+B" | "Профи" | "Оптима" | "Экспресс" | "Эконом"){
+  applicationData.chosenCourse = selectedOption
+}
+function recordCpp(selectedOption: "МКПП" | "АКПП"){
+  applicationData.cpp = selectedOption
+}
+function recordTypeOfTraining(selectedOption: "Онлайн" | "Очно"){
+  applicationData.typeOfTraining = selectedOption
+}
+function recordOfferStatus(selectedOption: "Новая заявка"| "В обработке"| "Не отвечает"| "Думает"| "Скоро придет"| "Записался(ась) на обучение"| "Завершил обучение"){
+  applicationData.offerStatus = selectedOption
+}
+function recordPaymentType(selectedOption:"Наличка" | "Безнал"){
+  applicationData.paymentType = selectedOption
+}
+
+watchEffect(()=>{
+  recordFio()
+})
 </script>
 
 <template>
   <popup-constructor
     :addPopupDeleteButton="false"
-    @close-popup="closePopup"
+    @close-popup="showPopup(false)"
+    @save-value="createApplication()"
     :popup-title="props.popupTitle"
   >
     <div
@@ -56,10 +127,10 @@ function createApplication() {
             <div>
               <div class="flex gap-[10px]">
                 <p class=" text-base font-normal">Фамилия Имя Отчество</p>
-                <p class=" text-base text-[#f33939]">{{ validationMainInfoFullName(fullName) }}</p>
+                <p class=" text-base text-[#f33939]">{{ validationMainInfoFullName(applicationData.fio.firstname) }}</p>
               </div>
                 <input
-                  v-model="fullName"
+                  v-model="fullFio"
                   placeholder="Фамилия Имя Отчество"
                   class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
                   type="text"
@@ -68,10 +139,10 @@ function createApplication() {
             <div class="mt-[10px]">
               <div class="flex gap-[10px]">
                 <p class="mb-[5px] text-base font-normal">Номер</p>
-                <p class=" text-base text-[#f33939]">{{ validationMainInfoPhoneNumber(phoneNumber) }}</p>
+                <p class=" text-base text-[#f33939]">{{ validationMainInfoPhoneNumber(applicationData.phone) }}</p>
               </div>
                 <input
-                  v-model="phoneNumber"
+                  v-model="applicationData.phone"
                   placeholder="+7 (999) 999-99-99"
                   class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
                   type="text"
@@ -80,7 +151,7 @@ function createApplication() {
             <div class="mt-[10px]">
               <p class="mb-[5px] text-base font-normal">
                 Филиал
-                <CustomSelect :selectValues="arr" />
+                <CustomSelect @changeValue="recordFilial" :selectValues="applicationSelectOptions.filial" />
               </p>
             </div>
           </div>
@@ -95,19 +166,19 @@ function createApplication() {
             <div>
               <p class="mb-[5px] text-base font-normal">
                 Выбранный курс
-                <CustomSelect :selectValues="arr" />
+                <CustomSelect @changeValue="recordChosenCourse" :selectValues="applicationSelectOptions.chosenCourse" />
               </p>
             </div>
             <div class="mt-[10px]">
               <p class="mb-[5px] text-base font-normal">
                 КПП
-                <CustomSelect :selectValues="arr" />
+                <CustomSelect @changeValue="recordCpp" :selectValues="applicationSelectOptions.cpp" />
               </p>
             </div>
             <div class="mt-[10px]">
               <p class="mb-[5px] text-base font-normal">
                 Тип обучения
-                <CustomSelect :selectValues="arr" />
+                <CustomSelect @changeValue="recordTypeOfTraining" :selectValues="applicationSelectOptions.typeOfTraining" />
               </p>
             </div>
           </div>
@@ -123,7 +194,7 @@ function createApplication() {
           <p class="mb-[5px] text-base font-normal">
             Откуда узнали?
             <input
-              class="mb-[10px] h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36] dark:placeholder-[#757575]"
+              class=" mb-[10px] h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36] dark:placeholder-[#757575]"
               placeholder="Например: от друзей..."
               type="text"
             />
@@ -131,7 +202,8 @@ function createApplication() {
           <p class=" mb-[5px] text-base font-normal">
             Комментарий
             <textarea
-              class="h-[120px] w-full resize-none rounded-[20px] border border-[#BBC1CD] pl-[16px] pt-[8px] dark:border-[#576776] dark:bg-[#262C36] dark:placeholder-[#757575]"
+              v-model="applicationData.comment"
+              class=" h-[120px] w-full resize-none rounded-[20px] border border-[#BBC1CD] pl-[16px] pt-[8px] dark:border-[#576776] dark:bg-[#262C36] dark:placeholder-[#757575]"
               placeholder="Введите текст..."
             ></textarea>
           </p>
@@ -146,7 +218,7 @@ function createApplication() {
         <div>
           <p class=" mb-[5px] text-base font-normal">
             Статус
-            <CustomSelect :selectValues="arr" />
+            <CustomSelect @changeValue="recordOfferStatus" :selectValues="applicationSelectOptions.offerStatus" />
           </p>
         </div>
 
@@ -170,29 +242,28 @@ function createApplication() {
         <div class="mt-[5px]">
           <p class=" mb-[5px]">
             Тип оплаты
-            <CustomSelect :selectValues="arr" />
+            <CustomSelect @changeValue="recordPaymentType" :selectValues="applicationSelectOptions.paymentType" />
           </p>
         </div>
         <div class="mt-[5px]">
           <p class="mb-[5px]">Доход</p>
-          <p class=" text-base text-[#f33939]">{{ validationFinancialInfoIncome(income) }}</p>
+          <p class=" text-base text-[#f33939]">{{ validationFinancialInfoIncome(applicationData.income) }}</p>
             <input
-              v-model="income"
+              v-model="applicationData.income"
               class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
               type="text"
             />
         </div>
         <div class="mt-[5px]">
           <p class=" mb-[5px]">Скидка</p>
-            <p class=" text-base text-[#f33939]">{{ validationFinancialInfoIncome(discount) }}</p>
+            <p class=" text-base text-[#f33939]">{{ validationFinancialInfoDiscount(applicationData.discount) }}</p>
             <input
-              v-model="discount"
+              v-model="applicationData.discount"
               class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
               type="text"
             />
         </div>
       </div>
-      <modalWindowOther class="mt-[10px] tabletXl:mt-[0] tabletXl:hidden" />
     </div>
   </popup-constructor>
 </template>
