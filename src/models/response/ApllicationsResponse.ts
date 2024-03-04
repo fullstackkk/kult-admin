@@ -1,3 +1,36 @@
+export const enum filial {
+  mezda = "Межда",
+  ozerki = "Озерки",
+}
+export const enum chosenCourse {
+  motoA = "Мото A",
+  motoAPlusB = "A+B",
+  profi = "Профи",
+  optima = "Оптима",
+  express = "Экспресс",
+  ekonm = "Эконом",
+}
+export const enum cpp {
+  MKPP = "МКПП",
+  AKPP = "АКПП",
+}
+export const enum typeOfTraining {
+  online = "Онлайн",
+  ofline = "Очно",
+}
+export const enum offerStatus {
+  newAplication = "Новая заявка",
+  inProcess = "В обработке",
+  noAnswer = "Не отвечает",
+  isThink = "Думает",
+  readyToGo = "Скоро придет",
+  readyToLearn = "Записался(ась) на обучение",
+  finishLearn = "Завершил обучение",
+}
+export const enum paymentType {
+  cash = "Наличка",
+  onlinePayment = "Безнал",
+}
 export interface IApplication {
   isActive?: boolean;
   number: number;
@@ -9,20 +42,13 @@ export interface IApplication {
   phone: number;
   creationDate?: number;
   regDate?: number;
-  filial: "Межда" | "Озерки";
-  chosenCourse: "Мото A" | "A+B" | "Профи" | "Оптима" | "Экспресс" | "Эконом";
-  cpp: "МКПП" | "АКПП";
-  typeOfTraining: "Онлайн" | "Очно";
-  offerStatus:
-    | "Новая заявка"
-    | "В обработке"
-    | "Не отвечает"
-    | "Думает"
-    | "Скоро придет"
-    | "Записался(ась) на обучение"
-    | "Завершил обучение";
+  filial: filial;
+  chosenCourse: chosenCourse;
+  cpp: cpp;
+  typeOfTraining: typeOfTraining;
+  offerStatus: offerStatus
   issueDate?: number;
-  paymentType: "Наличка" | "Безнал";
+  paymentType: paymentType;
   income?: number;
   discount?: number;
   comment?: string;
