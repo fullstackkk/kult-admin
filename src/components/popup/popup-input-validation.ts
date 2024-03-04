@@ -68,6 +68,5 @@ export function validationFinancialInfoDiscount(text: number | undefined) {
 }
 
 export function fullCheck() {
-  console.log(check1.value, check2.value, check3.value, check4.value)
   return check1.value && check2.value && check3.value && check4.value;
 };

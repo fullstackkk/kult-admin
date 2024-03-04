@@ -32,7 +32,7 @@ export const useApplicationStore = defineStore("application", {
         const response = await ApplicationsService.applicationCreate(
           application
         );
-        this.setApplication(response.data);
+        console.log(response)
       } catch (error) {
         console.log(error);
       }

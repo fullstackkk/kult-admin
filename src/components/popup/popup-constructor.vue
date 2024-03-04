@@ -6,7 +6,8 @@ import { onMounted, ref } from "vue";
 
 interface IProps {
   popupTitle?: string;
-  addPopupDeleteButton: boolean
+  addPopupDeleteButton: boolean;
+  isActivePopupSaveButton?: boolean;
 }
 interface IEmits {
   (e: "close-popup"): void;

@@ -6,16 +6,21 @@ import { CustomSelect } from "@/components/ui";
 import { IconConstructor } from "@/components";
 import { calendarIcon } from "@/assets/svg";
 import { reactive, ref, watchEffect } from "vue";
-import { IApplication } from "@/models/response/ApllicationsResponse";
+import { IApplication,chosenCourse,cpp,filial,offerStatus,paymentType,typeOfTraining } from "@/models/response/ApllicationsResponse";
+import {enumToString} from "@/utils/enum-to-string"
 
-interface IApplicationSelectOptions{
-  filial: ["Межда","Озерки"]
-  chosenCourse: ["Мото A","A+B","Профи","Оптима","Экспресс","Эконом"]
-  cpp: ["МКПП","АКПП"]
-  typeOfTraining:["Онлайн","Очно"]
-  offerStatus:["Новая заявка","В обработке","Не отвечает","Думает","Скоро придет","Записался(ась) на обучение","Завершил обучение"]
-  paymentType: ["Наличка","Безнал"] | "Наличка" | "Безнал"
-}
+// const enum filial{
+
+// }
+
+// const enum IApplicationSelectOptions {
+//   filial = "Межда" , "Озерки",
+//   chosenCourse: "Мото A"|"A+B"|"Профи"|"Оптима"|"Экспресс"|"Эконом",
+//   cpp: "МКПП"|"АКПП",
+//   typeOfTraining:"Онлайн"|"Очно",
+//   offerStatus:"Новая заявка"|"В обработке"|"Не отвечает"|"Думает"|"Скоро придет"|"Записался(ась) на обучение"|"Завершил обучение",
+//   // paymentType: {["Наличка"|"Безнал"] | "Наличка" | "Безнал"}
+// }
 interface IProps {
   popupTitle?: string;
 }
@@ -30,28 +35,21 @@ const applicationStore = useApplicationStore();
 
 let fullFio = ref("")
 
-const applicationSelectOptions:IApplicationSelectOptions = ({
-  filial: ["Межда","Озерки"],
-  chosenCourse: ["Мото A","A+B","Профи","Оптима","Экспресс","Эконом"],
-  cpp: ["МКПП","АКПП"],
-  typeOfTraining: ["Онлайн","Очно"],
-  offerStatus: ["Новая заявка","В обработке","Не отвечает","Думает","Скоро придет","Записался(ась) на обучение","Завершил обучение"],
-  paymentType: ["Наличка","Безнал"],
-});
 const applicationData = reactive<IApplication>({
-  number: 89103232323,
+  isActive: true,
+  number: 0,
   fio: {
     firstname: "",
     lastname: "",
     patronomic: "",
   },
-  phone: 89999999999,
-  filial: "Межда",
-  chosenCourse: "Мото A",
-  cpp: "МКПП",
-  typeOfTraining: "Онлайн",
-  offerStatus: "Новая заявка",
-  paymentType: "Наличка",
+  phone: 79633094589,
+  filial: filial.mezda,
+  chosenCourse: chosenCourse.ekonm,
+  cpp: cpp.AKPP,
+  typeOfTraining: typeOfTraining.ofline,
+  offerStatus: offerStatus.newAplication,
+  paymentType: paymentType.onlinePayment,
   income: 0,
   discount: 0,
   comment: "",
@@ -60,8 +58,8 @@ const applicationData = reactive<IApplication>({
 function createApplication() {
   // моковая функция что бы создать заявку
   if (fullCheck()){
+    console.log(applicationData)
     applicationStore.createApplication(applicationData);
-    console.log("данные о новом ученике улетели")
   }
 }
 
@@ -72,33 +70,32 @@ function showPopup(showPopup: boolean) {
     : `${(document.body.style.overflow = "auto")}`;
 }
 
-function recordFio(){
+function setFio(){
   applicationData.fio.firstname = fullFio.value.split(' ')[0]
   applicationData.fio.lastname = fullFio.value.split(' ')[1]
   applicationData.fio.patronomic = fullFio.value.split(' ')[2]
 }
-function recordFilial(selectedOption: "Межда" | "Озерки"){
+function setFilial(selectedOption: filial){
   applicationData.filial = selectedOption
-  console.log(applicationData)
 }
-function recordChosenCourse(selectedOption: "Мото A" | "A+B" | "Профи" | "Оптима" | "Экспресс" | "Эконом"){
+function setChosenCourse(selectedOption: chosenCourse){
   applicationData.chosenCourse = selectedOption
 }
-function recordCpp(selectedOption: "МКПП" | "АКПП"){
+function setCpp(selectedOption: cpp){
   applicationData.cpp = selectedOption
 }
-function recordTypeOfTraining(selectedOption: "Онлайн" | "Очно"){
+function setTypeOfTraining(selectedOption: typeOfTraining){
   applicationData.typeOfTraining = selectedOption
 }
-function recordOfferStatus(selectedOption: "Новая заявка"| "В обработке"| "Не отвечает"| "Думает"| "Скоро придет"| "Записался(ась) на обучение"| "Завершил обучение"){
+function setOfferStatus(selectedOption:offerStatus){
   applicationData.offerStatus = selectedOption
 }
-function recordPaymentType(selectedOption:"Наличка" | "Безнал"){
+function setPaymentType(selectedOption: paymentType){
   applicationData.paymentType = selectedOption
 }
 
 watchEffect(()=>{
-  recordFio()
+  setFio()
 })
 </script>
 
@@ -107,8 +104,10 @@ watchEffect(()=>{
     :addPopupDeleteButton="false"
     @close-popup="showPopup(false)"
     @save-value="createApplication()"
+    :isActivePopupSaveButton="false"
     :popup-title="props.popupTitle"
   >
+  <!-- передаем состояние валидации для saveButton -->
     <div
       class="mb-[30px] flex justify-between gap-[10px] mobile:flex-col mobile:items-center tablet:items-start tabletXl:flex-row"
     >
@@ -151,7 +150,8 @@ watchEffect(()=>{
             <div class="mt-[10px]">
               <p class="mb-[5px] text-base font-normal">
                 Филиал
-                <CustomSelect @changeValue="recordFilial" :selectValues="applicationSelectOptions.filial" />
+                <!-- @vue-ignore -->
+                <CustomSelect @changeValue="setFilial" :selectValues="enumToString(filial)" />
               </p>
             </div>
           </div>
@@ -166,19 +166,22 @@ watchEffect(()=>{
             <div>
               <p class="mb-[5px] text-base font-normal">
                 Выбранный курс
-                <CustomSelect @changeValue="recordChosenCourse" :selectValues="applicationSelectOptions.chosenCourse" />
+                <!-- @vue-ignore -->
+                <CustomSelect @changeValue="setChosenCourse" :selectValues="enumToString(chosenCourse)" />
               </p>
             </div>
             <div class="mt-[10px]">
               <p class="mb-[5px] text-base font-normal">
                 КПП
-                <CustomSelect @changeValue="recordCpp" :selectValues="applicationSelectOptions.cpp" />
+                <!-- @vue-ignore -->
+                <CustomSelect @changeValue="setCpp" :selectValues="enumToString(cpp)" />
               </p>
             </div>
             <div class="mt-[10px]">
               <p class="mb-[5px] text-base font-normal">
                 Тип обучения
-                <CustomSelect @changeValue="recordTypeOfTraining" :selectValues="applicationSelectOptions.typeOfTraining" />
+                <!-- @vue-ignore -->
+                <CustomSelect @changeValue="setTypeOfTraining" :selectValues="enumToString(typeOfTraining)" />
               </p>
             </div>
           </div>
@@ -218,7 +221,8 @@ watchEffect(()=>{
         <div>
           <p class=" mb-[5px] text-base font-normal">
             Статус
-            <CustomSelect @changeValue="recordOfferStatus" :selectValues="applicationSelectOptions.offerStatus" />
+            <!-- @vue-ignore -->
+            <CustomSelect @changeValue="setOfferStatus" :selectValues="enumToString(offerStatus)" />
           </p>
         </div>
 
@@ -242,7 +246,8 @@ watchEffect(()=>{
         <div class="mt-[5px]">
           <p class=" mb-[5px]">
             Тип оплаты
-            <CustomSelect @changeValue="recordPaymentType" :selectValues="applicationSelectOptions.paymentType" />
+            <!-- @vue-ignore -->
+            <CustomSelect @changeValue="setPaymentType" :selectValues="enumToString(paymentType)" />
           </p>
         </div>
         <div class="mt-[5px]">
