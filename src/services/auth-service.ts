@@ -14,6 +14,7 @@ export default class AuthService {
     });
     // .then(res=>res.data ) проверочный комент
   }
+
   // static async registration(
   //   username: string,
   //   password: string
