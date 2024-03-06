@@ -33,8 +33,10 @@ export const useApplicationStore = defineStore("application", {
           application
         );
         console.log(response)
+        return true
       } catch (error) {
         console.log(error);
+        return error
       }
     },
   },

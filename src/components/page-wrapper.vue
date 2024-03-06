@@ -12,7 +12,9 @@ function setIsShowFullSidebar() {
 }
 </script>
 <template>
-  <div class="flex h-screen flex-1 flex-col p-[20px] dark:bg-[#0D0F11]">
+  <div
+    class="relative flex h-screen flex-1 flex-col p-[20px] dark:bg-[#0D0F11]"
+  >
     <MainHeader />
     <div class="flex h-full gap-[20px] dark:bg-[#0D0F11]">
       <MainSidebar class="mobile:hidden tablet:flex" />

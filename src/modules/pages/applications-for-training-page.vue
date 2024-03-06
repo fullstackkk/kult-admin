@@ -7,10 +7,11 @@ import { useApplicationStore } from "@/store/modules/application";
 import { useAppStateStore } from "@/store/modules/app-state";
 import { TableConstructor, StandardCell, Pagination } from "@/components/table";
 import CreateApplicationPopup from "@/modules/popups/create-application-popup.vue";
+import errorSendAplicationPopup from "../popups/error-send-aplication-popup.vue";
 import { convertFioToString } from "./utils/convert-fio-to-string";
 
 import { ITableHeaders } from "@/components/table/utils/TableHeaders";
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { IApplication } from "@/models/response/ApllicationsResponse";
 
 const applicationStore = useApplicationStore();
@@ -20,6 +21,7 @@ const applications = computed<IApplication[]>(
 );
 interface IState {
   isOpenCreateApplicationPopup: boolean;
+  isOpenErrorPopup: boolean;
 }
 
 interface IFio {
@@ -29,7 +31,9 @@ interface IFio {
 }
 const state = reactive<IState>({
   isOpenCreateApplicationPopup: false,
+  isOpenErrorPopup: false
 });
+const createApplicationError = ref("")
 const pageTitle = "Заявки на обучение";
 const headers: ITableHeaders[] = [
   {
@@ -75,8 +79,14 @@ const headers: ITableHeaders[] = [
 ];
 
 
-function toogleState(showPopup: boolean){
+function toogleCreateAplicationState(showPopup: boolean){
   state.isOpenCreateApplicationPopup = showPopup
+}
+function tooglePopupErrorState(showPopup: boolean){
+  state.isOpenErrorPopup = showPopup
+}
+function getError(error: string){
+  createApplicationError.value = error
 }
 function convertTimestampToDateTime(timestamp: number | undefined) {
   if (!timestamp) {
@@ -96,8 +106,15 @@ onMounted(() => {
   <teleport to="body">
     <create-application-popup
       :popup-title="'Добавить ученика'"
-      @show-popup="toogleState"
+      @show-popup="toogleCreateAplicationState"
+      @show-error-popup="tooglePopupErrorState"
+      @give-an-create-application-error="getError"
       v-if="state.isOpenCreateApplicationPopup"
+    />
+    <error-send-aplication-popup
+      @show-error-popup="tooglePopupErrorState"
+      :error="createApplicationError"
+      v-if="state.isOpenErrorPopup"
     />
   </teleport>
   <page-wrapper>
@@ -134,7 +151,7 @@ onMounted(() => {
           </label>
         </div>
         <main-button
-          @click="toogleState(true)"
+          @click="toogleCreateAplicationState(true)"
           class="dark:border-[#262C36] dark:bg-[#191D23] dark:text-[#E4E4E4] tablet:h-[40px] tablet:leading-5"
           text-content="Добавить заявку"
           rightIcon="plusIcon"

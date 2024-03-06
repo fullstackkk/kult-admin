@@ -1,31 +1,19 @@
 <script setup lang="ts">
 import { PopupConstructor } from "@/components/popup";
 import { useApplicationStore } from "@/store/modules/application";
-import { validationMainInfoFullName,validationMainInfoPhoneNumber,validationFinancialInfoIncome,validationFinancialInfoDiscount,fullCheck } from "@/components/popup/popup-input-validation";
-import { CustomSelect } from "@/components/ui";
-import { IconConstructor } from "@/components";
-import { calendarIcon } from "@/assets/svg";
+import { validation } from "@/components/popup/popup-input-validation";
+import { CustomSelect, CustomDateInput } from "@/components/ui";
 import { reactive, ref, watchEffect } from "vue";
 import { IApplication,chosenCourse,cpp,filial,offerStatus,paymentType,typeOfTraining } from "@/models/response/ApllicationsResponse";
 import {enumToString} from "@/utils/enum-to-string"
 
-// const enum filial{
-
-// }
-
-// const enum IApplicationSelectOptions {
-//   filial = "Межда" , "Озерки",
-//   chosenCourse: "Мото A"|"A+B"|"Профи"|"Оптима"|"Экспресс"|"Эконом",
-//   cpp: "МКПП"|"АКПП",
-//   typeOfTraining:"Онлайн"|"Очно",
-//   offerStatus:"Новая заявка"|"В обработке"|"Не отвечает"|"Думает"|"Скоро придет"|"Записался(ась) на обучение"|"Завершил обучение",
-//   // paymentType: {["Наличка"|"Безнал"] | "Наличка" | "Безнал"}
-// }
 interface IProps {
   popupTitle?: string;
 }
 interface IEmits {
   (e: "show-popup", value: boolean):boolean
+  (e: "show-error-popup", value: boolean):boolean
+  (e: "give-an-create-application-error", value: string):string
 }
 
 
@@ -34,6 +22,7 @@ const emit = defineEmits<IEmits>();
 const applicationStore = useApplicationStore();
 
 let fullFio = ref("")
+let fullValidation = ref()
 
 const applicationData = reactive<IApplication>({
   isActive: true,
@@ -55,14 +44,6 @@ const applicationData = reactive<IApplication>({
   comment: "",
 });
 
-function createApplication() {
-  // моковая функция что бы создать заявку
-  if (fullCheck()){
-    console.log(applicationData)
-    applicationStore.createApplication(applicationData);
-  }
-}
-
 function showPopup(showPopup: boolean) {
   emit("show-popup", showPopup)
   showPopup
@@ -70,6 +51,20 @@ function showPopup(showPopup: boolean) {
     : `${(document.body.style.overflow = "auto")}`;
 }
 
+async function createApplication() {
+  // моковая функция что бы создать заявку
+  const serverResponse = await applicationStore.createApplication(applicationData)
+  if (serverResponse == true){
+    applicationStore.createApplication(applicationData);
+  } else (
+    emit("show-error-popup", true),
+    emit("give-an-create-application-error", String(serverResponse))
+  )
+  showPopup(false)
+}
+function addFulValidation(){
+ fullValidation.value = validation(applicationData.fio.firstname ,"fullName") + validation(applicationData.phone,"phoneNumber") + validation(applicationData.income,"infoIncome") + validation(applicationData.discount, "infoDiscount")
+}
 function setFio(){
   applicationData.fio.firstname = fullFio.value.split(' ')[0]
   applicationData.fio.lastname = fullFio.value.split(' ')[1]
@@ -96,6 +91,7 @@ function setPaymentType(selectedOption: paymentType){
 
 watchEffect(()=>{
   setFio()
+  addFulValidation()
 })
 </script>
 
@@ -104,6 +100,7 @@ watchEffect(()=>{
     :addPopupDeleteButton="false"
     @close-popup="showPopup(false)"
     @save-value="createApplication()"
+    :stateSaveButton = !(fullValidation)
     :isActivePopupSaveButton="false"
     :popup-title="props.popupTitle"
   >
@@ -126,7 +123,7 @@ watchEffect(()=>{
             <div>
               <div class="flex gap-[10px]">
                 <p class=" text-base font-normal">Фамилия Имя Отчество</p>
-                <p class=" text-base text-[#f33939]">{{ validationMainInfoFullName(applicationData.fio.firstname) }}</p>
+                <p class=" text-base text-[#f33939]">{{validation(applicationData.fio.firstname ,"fullName")}}</p>
               </div>
                 <input
                   v-model="fullFio"
@@ -138,7 +135,7 @@ watchEffect(()=>{
             <div class="mt-[10px]">
               <div class="flex gap-[10px]">
                 <p class="mb-[5px] text-base font-normal">Номер</p>
-                <p class=" text-base text-[#f33939]">{{ validationMainInfoPhoneNumber(applicationData.phone) }}</p>
+                <p class=" text-base text-[#f33939]">{{ validation(applicationData.phone,"phoneNumber") }}</p>
               </div>
                 <input
                   v-model="applicationData.phone"
@@ -230,15 +227,7 @@ watchEffect(()=>{
           <p class="mb-[5px] text-base font-normal">
             Дата оформления
             <div class="relative h-[40px]">
-              <input
-              value="17.09.23"
-              class="relative size-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
-              type="text"
-            />
-            <IconConstructor class="absolute right-[16px] top-[5px]">
-              <!-- @click="emit('click')" -->
-              <calendarIcon/>
-            </IconConstructor>
+              <CustomDateInput/>
             </div>
           </p>
         </div>
@@ -252,7 +241,7 @@ watchEffect(()=>{
         </div>
         <div class="mt-[5px]">
           <p class="mb-[5px]">Доход</p>
-          <p class=" text-base text-[#f33939]">{{ validationFinancialInfoIncome(applicationData.income) }}</p>
+          <p class=" text-base text-[#f33939]">{{ validation(applicationData.income,"infoIncome") }}</p>
             <input
               v-model="applicationData.income"
               class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
@@ -261,7 +250,7 @@ watchEffect(()=>{
         </div>
         <div class="mt-[5px]">
           <p class=" mb-[5px]">Скидка</p>
-            <p class=" text-base text-[#f33939]">{{ validationFinancialInfoDiscount(applicationData.discount) }}</p>
+            <p class=" text-base text-[#f33939]">{{ validation(applicationData.discount, "infoDiscount") }}</p>
             <input
               v-model="applicationData.discount"
               class="h-[40px] w-full rounded-[20px] border border-[#CCC8F4] bg-[#fafafa] pl-[16px] dark:border-[#576776] dark:bg-[#262C36]"
