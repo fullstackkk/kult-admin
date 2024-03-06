@@ -7,14 +7,20 @@ import { onMounted, ref } from "vue";
 interface IProps {
   popupTitle?: string;
   addPopupDeleteButton: boolean;
-  isActivePopupSaveButton?: boolean;
+  addPopupSaveButton: boolean;
+  stateSaveButton: boolean;
 }
 interface IEmits {
   (e: "close-popup"): void;
   (e: "save-value"): void;
 }
 
-const props = defineProps<IProps>();
+const props = withDefaults(defineProps<IProps>(),{
+  popupTitle: "",
+  addPopupDeleteButton: false,
+  addPopupSaveButton: true,
+  stateSaveButton: false
+});
 const emit = defineEmits<IEmits>();
 const popup = ref<HTMLElement | null>(null);
 const modal = ref<HTMLElement | null>(null);
@@ -24,7 +30,10 @@ function closePopup() {
   emit("close-popup");
 }
 function onClickSaveButton() {
-  emit("save-value");
+  if (props.stateSaveButton) {
+    emit("save-value");
+  }
+  
 }
 onClickOutside(modal, closePopup);
 onMounted(() => {
@@ -56,7 +65,9 @@ onMounted(() => {
         class="flex justify-center gap-[10px] dark:text-[#E4E4E4] tablet:justify-start"
       >
         <button
-          class="h-[38px] w-full rounded-[50px] border border-[#DCDCDD] bg-[#E2DEFF] dark:border-[#576776] dark:bg-[#504C6A] tabletXl:w-[398px]"
+          v-if="props.addPopupSaveButton"
+          :class="stateSaveButton ? 'bg-[#E2DEFF] dark:bg-[#504C6A]' : 'bg-[#b2b2b2]'"
+          class="h-[38px] w-full rounded-[50px] border border-[#DCDCDD] dark:border-[#576776] tabletXl:w-[398px]"
           @click="onClickSaveButton"
         >
           Сохранить
