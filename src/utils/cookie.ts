@@ -1,7 +1,7 @@
-// export function setCookie(cookieName: string, cookieValue: string) {
-//   // Установить cookie с параметром HttpOnly
-//   document.cookie = `${cookieName}=${cookieValue}`;
-// }
+export function setCookie(cookieName: string, cookieValue: string) {
+  // Установить cookie с параметром HttpOnly
+  document.cookie = `${cookieName}=${cookieValue}`;
+}
 // // Получить значение cookie, включая параметр HttpOnly
 // export function getCookie(cookieName: string) {
 //   let value = "; " + document.cookie;
