@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<IProps>(), {
   <div class="table_" :id="id">
     <!-- Шапка -->
     <div
-      class="flex w-fit justify-between bg-[#FAFAFA] dark:bg-[#262C36]"
+      class="flex w-full min-w-[1110px] justify-start bg-[#FAFAFA] dark:bg-[#262C36]"
       :class="tableRowMarker"
     >
       <slot name="check-header">
@@ -37,21 +37,25 @@ const props = withDefaults(defineProps<IProps>(), {
       <div
         v-for="({ title, classes }, index) in headers"
         class="relative flex items-center justify-start"
+        :class="classes"
         :key="index"
       >
         <div
           :id="`generate_${index}`"
-          class="relative min-w-[8px] py-[10px] pl-[10px] text-xs leading-3 text-[#303030] dark:text-[#757575]"
-          :class="[
-            classes,
-            {
-              'resize-x': index < headers.length - 1 && props.resize,
-            },
-          ]"
+          class="relative w-full py-[10px] text-xs leading-3 text-[#303030] dark:text-[#757575]"
         >
           {{ title }}
         </div>
       </div>
+      <slot name="settings-header">
+        <div
+          class="relative ml-auto flex w-[50px] min-w-[50px] items-center justify-center"
+        >
+          <IconConstructor>
+            <editIcon class="cursor-pointer hover:stroke-[#7B57E0]" />
+          </IconConstructor>
+        </div>
+      </slot>
     </div>
     <!-- Масив -->
     <div
@@ -75,10 +79,10 @@ const props = withDefaults(defineProps<IProps>(), {
           class="relative"
           v-for="({ slot_name, classes }, i) in headers"
           :key="slot_name"
+          :class="classes"
         >
           <div
-            :class="classes"
-            class="inline-flex h-11 flex-col items-start justify-center gap-[5px] pl-[5px] text-[#303030] dark:text-[#E4E4E4]"
+            class="inline-flex h-11 w-full flex-col items-start justify-center gap-[5px] text-[#303030] dark:text-[#E4E4E4]"
           >
             <slot :name="slot_name" v-bind="{ index }" />
           </div>
@@ -99,7 +103,7 @@ const props = withDefaults(defineProps<IProps>(), {
 </template>
 <style scoped>
 .table_ {
-  @apply overflow-auto   border border-[#A5A5A5] tablet:rounded-[20px] dark:bg-[#262C36] mobile:rounded-[10px]  h-full;
+  @apply overflow-auto w-full  border border-[#A5A5A5] tablet:rounded-[20px] dark:bg-[#262C36] mobile:rounded-[10px]  h-full;
 }
 .table_::-webkit-scrollbar {
   @apply w-[10px] h-[10px] tablet:h-[20px];

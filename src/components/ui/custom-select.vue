@@ -1,23 +1,25 @@
 <script setup lang="ts">
 interface IProps {
   selectValues: string[] | string;
+  descriptionText?: string;
 }
 interface IEmits {
   (e: "changeValue", selectedOption: any): string;
 }
 
-
-const props = defineProps<IProps>()
-const emit = defineEmits<IEmits>()
-
+const props = defineProps<IProps>();
+const emit = defineEmits<IEmits>();
 
 function getChangeValue(event: any) {
-  emit("changeValue", props.selectValues[event.target.value])
+  emit("changeValue", props.selectValues[event.target.value]);
 }
 </script>
 
 <template>
   <div class="select__wrapper">
+    <p v-if="descriptionText" class="pl-[12px] text-base font-normal">
+      {{ descriptionText }}
+    </p>
     <select
       @change="getChangeValue($event)"
       name="select"
@@ -36,7 +38,7 @@ function getChangeValue(event: any) {
 
 <style scoped>
 .custom__select {
-  @apply appearance-none w-full rounded-[20px] border border-[#CCC8F4] px-[16px] bg-[#fafafa] cursor-pointer py-[7px] border-solid dark:border-[#576776] dark:bg-[#262C36];
+  @apply relative appearance-none w-full rounded-[20px] border border-[#CCC8F4] px-[16px] bg-[#fafafa] cursor-pointer py-[7px] border-solid dark:border-[#576776] dark:bg-[#262C36];
   -moz-appearance: none;
   -webkit-appearance: none;
   outline: none;
@@ -46,6 +48,20 @@ function getChangeValue(event: any) {
 }
 
 .select__wrapper {
-  @apply relative before:content-[""] before:absolute before:-translate-x-2/4 before:block before:w-6 before:h-6 before:bg-[url("@/assets/svg/select_arrow.svg")] before:bg-contain before:bg-no-repeat before:cursor-pointer before:right-2 before:top-[20%] before:dark:invert;
+  @apply relative;
+}
+.select__wrapper::before {
+  z-index: 1;
+  content: "";
+  position: absolute;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-image: url("@/assets/svg/select_arrow.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  right: 8px;
+  bottom: 8px;
 }
 </style>
