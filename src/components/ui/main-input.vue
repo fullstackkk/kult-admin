@@ -5,13 +5,11 @@ import { IconConstructor } from "@/components";
 import { reactive, watch } from "vue";
 
 interface IEmits {
-  (e: "input", payload: { value: string; fromSuggestions: boolean }): void;
+  (e: "input", payload: { value: string }): void;
   (e: "select", payload: { value: string; index: number }): void;
   (e: "focus"): void;
   (e: "blur", payload: string | null): void;
   (e: "submit", payload: string | null): void;
-  (e: "update:search-value", payload: string): void;
-  (e: "remove-option"): void;
 }
 const emit = defineEmits<IEmits>();
 
@@ -24,6 +22,9 @@ interface IProps {
   inputClass?: string;
   inputRequired?: boolean;
   size?: "xs" | "sm" | "" | "lg" | "xl";
+  error?: string;
+  descriptionText: string;
+  type?: string;
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -35,6 +36,9 @@ const props = withDefaults(defineProps<IProps>(), {
   inputClass: "",
   inputRequired: false,
   size: "",
+  error: "",
+  descriptionText: "",
+  type: "text",
 });
 interface IState {
   value: string;
@@ -49,15 +53,7 @@ function onInput(event: Event) {
   state.focused = true;
   emit("input", {
     value: state.value,
-    fromSuggestions: false,
   });
-  syncInputValue();
-}
-function syncInputValue() {
-  const newValue = state.value;
-  if (props.inputValue !== newValue) {
-    emit("update:search-value", newValue);
-  }
 }
 
 function onFocus() {
@@ -83,15 +79,18 @@ watch(
 );
 </script>
 <template>
-  <label class="relative" :class="[props.fieldClass]"
-    ><input
+  <label class="relative flex flex-col" :class="[props.fieldClass]">
+    <p v-if="descriptionText" class="pl-[12px] text-base font-normal">
+      {{ descriptionText }}
+    </p>
+    <input
       :class="[props.inputClass, props.size]"
       :value="state.value"
       :placeholder="props.placeholder"
       :required="props.inputRequired"
       :maxlength="100"
-      type="text"
-      class="flex cursor-pointer items-center justify-center gap-[4px] rounded-[20px] border border-[#E2DEFF] bg-purplprimary px-[16px] py-[8px] dark:bg-[#262C36] dark:border-[#576776]"
+      :type="type"
+      class="flex cursor-pointer items-center justify-center gap-[4px] rounded-[20px] border border-solid border-[#E2DEFF] bg-purplprimary px-[16px] py-[8px] dark:border-[#576776] dark:bg-[#262C36]"
       autocomplete="off"
       name="address-string"
       @input="onInput"
@@ -99,6 +98,7 @@ watch(
       @blur="blur()"
       @keyup.enter="submit()"
     />
+    <p v-if="error" class="pl-[12px] text-[12px] text-[#f33939]">{{ error }}</p>
     <slot></slot>
     <!-- <icon-constructor
       class="absolute right-[16px] top-[8px]"

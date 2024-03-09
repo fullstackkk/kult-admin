@@ -9,7 +9,7 @@ import { TableConstructor, StandardCell, Pagination } from "@/components/table";
 import CreateApplicationPopup from "@/modules/popups/create-application-popup.vue";
 import errorSendAplicationPopup from "../popups/error-send-aplication-popup.vue";
 import { convertFioToString } from "./utils/convert-fio-to-string";
-
+import formatDateFromTimestamp from "@/utils/format-date-from-timestamp";
 import { ITableHeaders } from "@/components/table/utils/TableHeaders";
 import { computed, onMounted, reactive, ref } from "vue";
 import { IApplication } from "@/models/response/ApllicationsResponse";
@@ -31,9 +31,9 @@ interface IFio {
 }
 const state = reactive<IState>({
   isOpenCreateApplicationPopup: false,
-  isOpenErrorPopup: false
+  isOpenErrorPopup: false,
 });
-const createApplicationError = ref("")
+const createApplicationError = ref("");
 const pageTitle = "Заявки на обучение";
 const headers: ITableHeaders[] = [
   {
@@ -44,7 +44,7 @@ const headers: ITableHeaders[] = [
   {
     title: "ФИО",
     slot_name: "fio",
-    classes: " w-[138px]",
+    classes: "w-[300px]",
   },
   {
     title: "Номер",
@@ -78,15 +78,14 @@ const headers: ITableHeaders[] = [
   },
 ];
 
-
-function toogleCreateAplicationState(showPopup: boolean){
-  state.isOpenCreateApplicationPopup = showPopup
+function toogleCreateAplicationState(showPopup: boolean) {
+  state.isOpenCreateApplicationPopup = showPopup;
 }
-function tooglePopupErrorState(showPopup: boolean){
-  state.isOpenErrorPopup = showPopup
+function tooglePopupErrorState(showPopup: boolean) {
+  state.isOpenErrorPopup = showPopup;
 }
-function getError(error: string){
-  createApplicationError.value = error
+function getError(error: string) {
+  createApplicationError.value = error;
 }
 function convertTimestampToDateTime(timestamp: number | undefined) {
   if (!timestamp) {
@@ -184,19 +183,29 @@ onMounted(() => {
           </standard-cell>
         </template>
         <template #phone-number="{ index }"
-          ><standard-cell>{{ index }}</standard-cell></template
+          ><standard-cell>{{
+            applications[index].phone
+          }}</standard-cell></template
         >
         <template #branch="{ index }"
-          ><standard-cell>Международная</standard-cell></template
+          ><standard-cell>{{
+            applications[index].filial
+          }}</standard-cell></template
         >
         <template #well="{ index }"
-          ><standard-cell>Название_курса</standard-cell></template
+          ><standard-cell>{{
+            applications[index].chosenCourse
+          }}</standard-cell></template
         >
         <template #status="{ index }"
-          ><standard-cell>Записан</standard-cell></template
+          ><standard-cell>{{
+            applications[index].offerStatus
+          }}</standard-cell></template
         >
         <template #issue-date="{ index }"
-          ><standard-cell>17.09.23</standard-cell></template
+          ><standard-cell>{{
+            formatDateFromTimestamp(applications[index].creationDate)
+          }}</standard-cell></template
         >
         <template #income="{ index }"
           ><standard-cell>9 900,00</standard-cell></template

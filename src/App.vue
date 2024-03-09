@@ -8,7 +8,7 @@ const userStore = useUserStore();
 const pageTitle = computed(() => appStateStore.pageTitle);
 
 onMounted(() => {
-  if (localStorage.getItem("token")) userStore.checkAuth();
+  // if (localStorage.getItem("token")) userStore.checkAuth();
 });
 </script>
 <template>

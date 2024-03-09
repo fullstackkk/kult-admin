@@ -33,7 +33,7 @@ export const enum paymentType {
 }
 export interface IApplication {
   isActive?: boolean;
-  number: number;
+  number?: number;
   fio: {
     firstname: string;
     lastname: string;
@@ -46,7 +46,7 @@ export interface IApplication {
   chosenCourse: chosenCourse;
   cpp: cpp;
   typeOfTraining: typeOfTraining;
-  offerStatus: offerStatus
+  offerStatus: offerStatus;
   issueDate?: number;
   paymentType: paymentType;
   income?: number;

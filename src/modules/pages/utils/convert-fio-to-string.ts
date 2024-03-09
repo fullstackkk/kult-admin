@@ -5,5 +5,5 @@ interface IFio {
 }
 
 export function convertFioToString(fio: IFio) {
-  return `${fio.lastname} ${fio.firstname}:${fio.patronomic}`;
+  return `${fio.lastname} ${fio.firstname} ${fio.patronomic}`;
 }

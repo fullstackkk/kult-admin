@@ -27,3 +27,14 @@ export function validation(
     return "обязательное поле";
   }
 }
+export function checkStringHasOnlyRussianWord(text: string | undefined) {
+  return /^[\u0410-\u044FЁё]+$/i.test(text as string);
+}
+export function checkStringOnPhone(text: string | number | undefined) {
+  return /[7-8]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/.test(
+    text as string
+  );
+}
+export function checkStringHasOnlyNumber(text: string | number | undefined) {
+  return /[0-9]/.test(text as string);
+}
